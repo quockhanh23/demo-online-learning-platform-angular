@@ -4,7 +4,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TestComponent} from './test/test.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {MaterialModule} from "./material/material.module";
 import {ToastrModule} from "ngx-toastr";
@@ -16,13 +15,14 @@ import {CourseDetailComponent} from './course/course-detail/course-detail.compon
 import {CourseListComponent} from './course/course-list/course-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { LessonCreateComponent } from './lesson/lesson-create/lesson-create.component';
-import { LessonDetailComponent } from './lesson/lesson-detail/lesson-detail.component';
+import {LessonCreateComponent} from './lesson/lesson-create/lesson-create.component';
+import {LessonDetailComponent} from './lesson/lesson-detail/lesson-detail.component';
+import {TestCreateComponent} from './test/test-create/test-create.component';
+import {TopicTestCreateComponent} from './topic-test/topic-test-create/topic-test-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
     DialogComponent,
     HeaderComponent,
     FooterComponent,
@@ -31,6 +31,8 @@ import { LessonDetailComponent } from './lesson/lesson-detail/lesson-detail.comp
     CourseListComponent,
     LessonCreateComponent,
     LessonDetailComponent,
+    TestCreateComponent,
+    TopicTestCreateComponent,
   ],
   imports: [
     BrowserModule,
