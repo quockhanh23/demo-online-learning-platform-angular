@@ -1,7 +1,7 @@
 import {MultipleChoiceQuestion} from "./multiple-choice-question";
 import {EssayQuestion} from "./essay-question";
 
-export interface TopicTest {
+export interface TopicTestDTO {
   id?: string;
   testName?: string;
   type?: string;
@@ -10,6 +10,6 @@ export interface TopicTest {
   idCourse?: string;
   idLesson?: string;
   idTeacher?: string;
-  multipleChoiceQuestion: MultipleChoiceQuestion[]
-  essayQuestion: EssayQuestion[]
+  multipleChoiceQuestionList: MultipleChoiceQuestion[]
+  essayQuestionList: EssayQuestion[]
 }

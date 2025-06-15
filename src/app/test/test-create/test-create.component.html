@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row" style="margin-bottom: 5px">
+    <span style="font-size: 20px">Thời gian làm bài: </span>
+    <span style="font-size: 20px; color: green">{{display}}</span>
+  </div>
+  <hr>
+  <div class="row">
+    <h2>{{topicTestDTO?.testName}}</h2>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <h2>* Phần trắc nghiệm</h2>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div formArrayName="items">
+          <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+            <div style="font-size: 18px; margin-bottom: 5px">
+              <span>{{ item.get('questionNumber')?.value }}</span><span>. </span>
+              <span>{{ item.get('content')?.value }}</span>
+            </div>
+            <div class="row" style="margin-bottom: 5px">
+              <div class="col-3">
+                <label for="answer1">Đáp án A: </label>
+                <br>
+                <input id="answer1" type="radio" value="{{ item.get('answer1')?.value }}" formControlName="answer">
+                <span>{{ item.get('answer1')?.value }}</span>
+              </div>
+              <div class="col-3">
+                <label for="answer2">Đáp án B: </label>
+                <br>
+                <input id="answer2" type="radio" value="{{ item.get('answer2')?.value }}" formControlName="answer">
+                <span>{{ item.get('answer2')?.value }}</span>
+
+              </div>
+              <div class="col-3">
+                <label for="answer3">Đáp án C: </label>
+                <br>
+                <input id="answer3" type="radio" value="{{ item.get('answer3')?.value }}" formControlName="answer">
+                <span>{{ item.get('answer3')?.value }}</span>
+              </div>
+              <div class="col-3">
+                <label for="answer4">Đáp án D: </label>
+                <br>
+                <input id="answer4" type="radio" value="{{ item.get('answer4')?.value }}" formControlName="answer">
+                <span>{{ item.get('answer4')?.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <h2>* Phần tự luận</h2>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div formArrayName="essayQuestions">
+          <div *ngFor="let item of essayQuestions.controls; let i = index" [formGroupName]="i">
+            <div style="font-size: 18px; margin-bottom: 5px">
+              <span>{{ item.get('questionNumber')?.value }}</span><span>. </span>
+              <span>{{ item.get('content')?.value }}</span>
+            </div>
+            <div class="row" style="margin-bottom: 5px">
+              <textarea formControlName="answerEssay" placeholder="Viết câu trả lời ở đây"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="submit" class="btn btn-primary">Nộp bài</button>
+    </div>
+  </form>
+</div>
+
+

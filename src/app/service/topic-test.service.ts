@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {TopicTest} from "../model/topic-test";
+import {TopicTestDTO} from "../model/topic-test-d-t-o";
 import {MultipleChoiceQuestion} from "../model/multiple-choice-question";
 import {EssayQuestion} from "../model/essay-question";
 
@@ -15,12 +15,12 @@ export class TopicTestService {
   constructor(private http: HttpClient) {
   }
 
-  getDetailTopicTestByCourse(idCourse: any): Observable<TopicTest[]> {
-    return this.http.get<TopicTest[]>(API_URL + `/getDetailTopicTestByCourse?idCourse=${idCourse}`,)
+  getDetailTopicTestByCourse(idCourse: any): Observable<TopicTestDTO[]> {
+    return this.http.get<TopicTestDTO[]>(API_URL + `/getDetailTopicTestByCourse?idCourse=${idCourse}`,)
   }
 
-  getDetailTopicTestByLesson(idLesson: any): Observable<TopicTest> {
-    return this.http.get<TopicTest>(API_URL + `/getDetailTopicTestByLesson?idLesson=${idLesson}`,)
+  getDetailTopicTestByLesson(idLesson: any): Observable<TopicTestDTO> {
+    return this.http.get<TopicTestDTO>(API_URL + `/getDetailTopicTestByLesson?idLesson=${idLesson}`,)
   }
 
   createTopicTest(test: any): Observable<any> {
@@ -31,8 +31,8 @@ export class TopicTestService {
     })
   }
 
-  updateTopicTest(test: any): Observable<TopicTest> {
-    return this.http.put<TopicTest>(API_URL + `/updateTopicTest`, test, {
+  updateTopicTest(test: any): Observable<TopicTestDTO> {
+    return this.http.put<TopicTestDTO>(API_URL + `/updateTopicTest`, test, {
       headers: {
         Authorization: `Bearer ${""}`,
       }
