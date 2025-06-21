@@ -23,6 +23,18 @@ export class TopicTestService {
     return this.http.get<TopicTestDTO>(API_URL + `/getDetailTopicTestByLesson?idLesson=${idLesson}`,)
   }
 
+  findById(idTopicTest: any): Observable<TopicTestDTO> {
+    return this.http.get<TopicTestDTO>(API_URL + `/findById?idTopicTest=${idTopicTest}`,)
+  }
+
+  getMultipleChoiceQuestion(idTopicTest: any): Observable<MultipleChoiceQuestion[]> {
+    return this.http.get<MultipleChoiceQuestion[]>(API_URL + `/getMultipleChoiceQuestion?idTopicTest=${idTopicTest}`,)
+  }
+
+  getEssayQuestion(idTopicTest: any): Observable<EssayQuestion[]> {
+    return this.http.get<EssayQuestion[]>(API_URL + `/getEssayQuestion?idTopicTest=${idTopicTest}`,)
+  }
+
   createTopicTest(test: any): Observable<any> {
     return this.http.post<any>(API_URL + `/createTopicTest`, test, {
       headers: {
@@ -33,6 +45,14 @@ export class TopicTestService {
 
   updateTopicTest(test: any): Observable<TopicTestDTO> {
     return this.http.put<TopicTestDTO>(API_URL + `/updateTopicTest`, test, {
+      headers: {
+        Authorization: `Bearer ${""}`,
+      }
+    })
+  }
+
+  updateStatusTopicTest(status: any, idTopicTest: string): Observable<any> {
+    return this.http.put<any>(API_URL + `/updateStatusTopicTest?status=${status}&idTopicTest=${idTopicTest}`, {
       headers: {
         Authorization: `Bearer ${""}`,
       }

@@ -19,6 +19,7 @@ import {LessonCreateComponent} from './lesson/lesson-create/lesson-create.compon
 import {LessonDetailComponent} from './lesson/lesson-detail/lesson-detail.component';
 import {TestCreateComponent} from './test/test-create/test-create.component';
 import {TopicTestCreateComponent} from './topic-test/topic-test-create/topic-test-create.component';
+import { TopicTestComponent } from './topic-test/topic-test/topic-test.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {TopicTestCreateComponent} from './topic-test/topic-test-create/topic-tes
     LessonDetailComponent,
     TestCreateComponent,
     TopicTestCreateComponent,
+    TopicTestComponent,
   ],
   imports: [
     BrowserModule,

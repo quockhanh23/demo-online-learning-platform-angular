@@ -1,4 +1,55 @@
+<app-header></app-header>
 <div class="container">
-  <input formControlName="selectedAnswer">
-  <input formControlName="type">
+  <div class="row" *ngIf="topicTestCreate == null">
+    <form [formGroup]="topicForm" (ngSubmit)="createTopicTest()">
+      <input formControlName="testName">
+      <input formControlName="type">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+ <div class="row" *ngIf="!submit">
+   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+     <div class="row" *ngIf="topicTestCreate != null">
+       <div class="col-12">
+         <div class="row">
+           <div class="col-12">
+             <p>{{topicTestCreate?.testName}}</p>
+             <p>{{topicTestCreate?.type}}</p>
+           </div>
+           <div class="col-12">
+
+             <div formArrayName="items">
+               <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                 <label for="name">Câu hỏi:</label>
+                 <input id="name" formControlName="content">
+                 <br>
+                 <label for="value1">Đáp án A:</label>
+                 <input id="value1" formControlName="answer1">
+                 <br>
+                 <label for="value2">Đáp án B:</label>
+                 <input id="value2" formControlName="answer2">
+                 <br>
+                 <label for="value3">Đáp án C:</label>
+                 <input id="value3" formControlName="answer3">
+                 <br>
+                 <label for="value4">Đáp án D:</label>
+                 <input id="value4" formControlName="answer4">
+                 <br>
+                 <label for="value5">Đáp án đúng:</label>
+                 <input id="value5" formControlName="correctAnswer">
+               </div>
+             </div>
+             <button type="button" (click)="addItem(idTopicTest)">Thêm câu hỏi</button>
+             <button type="submit">Submit</button>
+           </div>
+           <div formArrayName="items2">
+             <div *ngFor="let item of items2.controls; let i = index" [formGroupName]="i">
+               <textarea formControlName="content"></textarea>
+             </div>
+           </div></div>
+         <button type="button" (click)="addItem2(idTopicTest)">Thêm câu hỏi 2</button>
+       </div>
+     </div>
+   </form>
+ </div>
 </div>

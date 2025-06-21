@@ -9,6 +9,7 @@ import {MultipleChoiceAnswer} from "../../model/multiple-choice-answer";
 import {EssayAnswer} from "../../model/essay-answer";
 import {EssayQuestion} from "../../model/essay-question";
 import {MultipleChoiceQuestion} from "../../model/multiple-choice-question";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-test-create',
@@ -19,9 +20,9 @@ export class TestCreateComponent implements OnInit {
 
   topicTestDTO?: TopicTestDTO
   test?: Test
-  idTest?: string
-  idUser?: string
-  idLesson?: string
+  idTest?: any
+  idUser?: any
+  idLesson?: any
   multipleChoiceAnswers: MultipleChoiceAnswer[] | undefined
   essayAnswers: EssayAnswer[] | undefined
 
@@ -33,12 +34,22 @@ export class TestCreateComponent implements OnInit {
 
   constructor(private testService: TestService,
               private topicTestService: TopicTestService,
+              private activatedRoute: ActivatedRoute,
               private userService: UserService,
               private formBuilder: FormBuilder,) {
     this.myForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
       essayQuestions: this.formBuilder.array([])
     });
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(rs => {
+      this.idLesson = rs.get('idLesson')
+    })
+    this.getDetailTopicTest()
+    this.createTest()
+    this.timer(999)
   }
 
   createTest() {
@@ -61,12 +72,6 @@ export class TestCreateComponent implements OnInit {
     if (this.essayAnswers == null) return
     this.testService.createEssayAnswer(this.essayAnswers).subscribe(() => {
     })
-  }
-
-  ngOnInit(): void {
-    this.getDetailTopicTest()
-    this.createTest()
-    this.timer(1)
   }
 
   getDetailTopicTest() {

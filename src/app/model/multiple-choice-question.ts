@@ -6,5 +6,6 @@ export interface MultipleChoiceQuestion {
   answer2?: string;
   answer3?: string;
   answer4?: string;
+  correctAnswer?: string;
   idTopicTest?: string;
 }
