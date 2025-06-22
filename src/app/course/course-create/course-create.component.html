@@ -5,14 +5,14 @@
       <div class="row align-items-center">
         <div class="col mt-4">
           <label>Tên khóa học:</label>
-          <input formControlName="title" class="form-control" placeholder="Tiêu đề">
+          <input formControlName="courseName" class="form-control" placeholder="Tên khóa học">
           <span style="font-size: 13px">Tối đa 32 kí tự</span>
         </div>
       </div>
       <div class="row align-items-center">
         <div class="col mt-4">
           <label>Mô tả khóa học:</label>
-          <textarea formControlName="name" class="form-control" placeholder="Tên"></textarea>
+          <textarea formControlName="courseDescription" class="form-control" placeholder="Mô tả"></textarea>
           <span style="font-size: 13px">Tối đa 32 kí tự</span>
         </div>
       </div>
@@ -21,7 +21,7 @@
           <div style="font-size: 19px">
             <div>
               <p>Ngày bắt đầu khóa học:</p>
-              <input id="startDate" type="date">
+              <input formControlName="startDate" type="date">
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div style="font-size: 19px">
             <div>
               <p>Ngày kết thúc khóa học:</p>
-              <input id="endDate" type="date">
+              <input formControlName="endDate" type="date">
             </div>
           </div>
         </div>

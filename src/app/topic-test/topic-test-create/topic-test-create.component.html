@@ -20,6 +20,7 @@
 
              <div formArrayName="items">
                <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                 <label >{{i + 1}}</label>
                  <label for="name">Câu hỏi:</label>
                  <input id="name" formControlName="content">
                  <br>

@@ -64,6 +64,7 @@ export class TopicTestCreateComponent implements OnInit {
 
   addItem(idTopicTest: string) {
     const itemGroup = this.fb.group({
+      questionNumber: this.items.length + 1,
       content: ['', Validators.required],
       answer1: ['', Validators.required],
       answer2: ['', Validators.required],

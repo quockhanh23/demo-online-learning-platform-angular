@@ -25,4 +25,9 @@ export class CourseDetailComponent implements OnInit {
       this.course = rs
     })
   }
+
+  courseRegister() {
+    this.courseService.registerCourse(this.idCourse, 1).subscribe(() => {
+    })
+  }
 }

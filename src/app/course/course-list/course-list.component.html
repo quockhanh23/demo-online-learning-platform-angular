@@ -1,2 +1,23 @@
+<app-header></app-header>
 <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div *ngFor="let c of pageCourse?.content">
+        <div style="border-radius: 5px; border: #554c86 1px solid; margin-bottom: 5px">
+          <div class="row">
+            <div class="col-6">
+              <p>{{c?.courseName}}</p>
+            </div>
+            <div class="col-6">
+              <button [routerLink]="['/detailCourse', c?.id]" class="btn btn-info">Xem chi tiết khóa học</button>
+            </div>
+          </div>
+          <div class="row">
+            <img src="favicon.ico">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
