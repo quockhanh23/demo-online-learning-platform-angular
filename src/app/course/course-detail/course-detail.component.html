@@ -12,10 +12,10 @@
       <h2>{{course?.courseName}}</h2>
     </div>
     <div class="col-6">
-      <button class="btn btn-info" (click)="courseRegister()">Đăng kí học khóa này</button>
+      <button *ngIf="value == '2'" class="btn btn-info" (click)="courseRegister()">Đăng kí học khóa này</button>
+      <button *ngIf="value  == '1'" class="btn btn-info">Học ngay</button>
     </div>
   </div>
-
   <p>{{course?.courseDescription}}</p>
   <p>{{course?.startDate}}</p>
   <p>{{course?.endDate}}</p>

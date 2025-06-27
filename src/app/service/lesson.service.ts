@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Lesson} from "../model/lesson";
+import {PageLesson} from "../model/pageLesson";
 
 const API_URL = "http://localhost:8080/api/lessons"
 
@@ -11,6 +12,10 @@ const API_URL = "http://localhost:8080/api/lessons"
 export class LessonService {
 
   constructor(private http: HttpClient) {
+  }
+
+  getAllLessonByCourse(page: any, size: any, idCourse: any, searchText: string): Observable<PageLesson> {
+    return this.http.get<PageLesson>(API_URL + `/getAllLessonByCourse?page=${page}&size=${size}&idCourse=${idCourse}&searchText=${searchText}`)
   }
 
   createLesson(lesson: Lesson): Observable<any> {

@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Course} from "../model/course";
 import {PageCourse} from "../model/pageCourse";
-import {CourseRegister} from "../model/courseRegister";
 
 const API_URL = "http://localhost:8080/api/courses"
 
@@ -37,5 +36,10 @@ export class CourseService {
 
   getDetailCourse(idCourse: any): Observable<Course> {
     return this.http.get<Course>(API_URL + `/getDetailCourse?idCourse=${idCourse}`,)
+  }
+
+  checkRegister(idCourse: any, idUserRegister: any): Observable<any> {
+    return this.http.get<any>(API_URL + `/checkRegister?idCourse=${idCourse}&idUserRegister=${idUserRegister}`,{
+    },)
   }
 }

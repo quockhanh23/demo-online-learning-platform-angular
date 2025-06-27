@@ -1,7 +1,8 @@
 export interface Lesson {
   id?: string;
+  lessonNumber?: string;
   lessonName?: string;
-  sourceUpload?: string;
+  image?: string;
   sourceUrl?: string;
   createdDate?: string;
   updatedDate?: string;

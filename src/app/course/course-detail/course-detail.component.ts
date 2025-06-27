@@ -12,6 +12,7 @@ export class CourseDetailComponent implements OnInit {
 
   course?: Course
   idCourse?: any
+  value?: any
 
   constructor(private courseService: CourseService,
               private activatedRoute: ActivatedRoute,) {
@@ -24,10 +25,17 @@ export class CourseDetailComponent implements OnInit {
     this.courseService.getDetailCourse(this.idCourse).subscribe(rs => {
       this.course = rs
     })
+    this.courseService.checkRegister(this.idCourse, 1).subscribe(rs => {
+      this.value = rs.value
+      console.log("this.value: " + this.value)
+    })
   }
 
   courseRegister() {
     this.courseService.registerCourse(this.idCourse, 1).subscribe(() => {
+      this.courseService.checkRegister(this.idCourse, 1).subscribe(rs => {
+        this.value = rs.value
+      })
     })
   }
 }

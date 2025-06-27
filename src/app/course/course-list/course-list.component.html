@@ -1,23 +1,49 @@
 <app-header></app-header>
-<div class="container">
+<div class="container" style="background-color: #e2eaef">
   <div class="row">
-    <div class="col-12">
+    <div class="col-4" style="margin-top: 10px">
       <div *ngFor="let c of pageCourse?.content">
-        <div style="border-radius: 5px; border: #554c86 1px solid; margin-bottom: 5px">
+        <div style="margin-bottom: 5px; margin-left: 10px;">
           <div class="row">
-            <div class="col-6">
+            <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid;">
               <p>{{c?.courseName}}</p>
+              <img src="favicon.ico">
+              <button (click)="getDetailCourse(c?.id)">Xem</button>
             </div>
-            <div class="col-6">
-              <button [routerLink]="['/detailCourse', c?.id]" class="btn btn-info">Xem chi tiết khóa học</button>
-            </div>
-          </div>
-          <div class="row">
-            <img src="favicon.ico">
           </div>
         </div>
       </div>
     </div>
+    <div class="col-8" *ngIf="course != null" style="margin-top: 10px">
+      <div class="row">
+        <div class="col-8">
+          <div>
+            <h3>{{course?.courseName}}</h3>
+            <p>{{course?.courseDescription}}</p>
+            <p>{{course?.startDate}}</p>
+            <p>{{course?.endDate}}</p>
+            <p>{{course?.status}}</p>
+            <p>Tổng số bài học trong khóa: {{sizeLessons}}</p>
+          </div>
+          <button [routerLink]="['/detailCourse', course?.id]">Xem chi tiết</button>
+        </div>
+        <div class="col-4">
+          <img style="width: 100%; border-radius: 5px" src="../../../assets/image/harvard.jpg">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div *ngFor="let l of pageLesson?.content">
+            <p>{{l?.lessonNumber}}</p>
+            <p>{{l?.lessonName}}</p>
+            <img src="{{l?.image}}">
+            <p>{{l?.status}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8" *ngIf="course == null">
+      <img style="width: 100%; margin-top: 150px; border-radius: 5px" src="../../../assets/image/harvard.jpg">
+    </div>
   </div>
 </div>
-
