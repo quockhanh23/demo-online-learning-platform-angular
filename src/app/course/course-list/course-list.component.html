@@ -1,11 +1,22 @@
 <app-header></app-header>
 <div class="container" style="background-color: #e2eaef">
   <div class="row">
+    <div class="col-4"></div>
+    <div class="col-3"></div>
+    <div class="col-5" style="margin-top: 10px;">
+      <form class="form-inline my-2 my-lg-0">
+        <input style="width: 75%" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
     <div class="col-4" style="margin-top: 10px">
       <div *ngFor="let c of pageCourse?.content">
         <div style="margin-bottom: 5px; margin-left: 10px;">
           <div class="row">
-            <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid;">
+            <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid; background-color: white">
               <p>{{c?.courseName}}</p>
               <img src="favicon.ico">
               <button (click)="getDetailCourse(c?.id)">Xem</button>
@@ -33,12 +44,61 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <div *ngFor="let l of pageLesson?.content">
-            <p>{{l?.lessonNumber}}</p>
-            <p>{{l?.lessonName}}</p>
-            <img src="{{l?.image}}">
-            <p>{{l?.status}}</p>
-          </div>
+          <section class="pt-5 pb-5">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <h3 class="mb-3">Các bài học trong khóa</h3>
+                </div>
+                <div class="col-6 text-right">
+                  <a class="mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                    <span class="material-icons">arrow_back_ios</span>
+                  </a>
+                  <a class="mb-3" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                    <span class="material-icons">arrow_forward_ios</span>
+                  </a>
+                </div>
+                <div class="col-12">
+                  <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <div class="row">
+                          <div class="col-md-4 mb-3" *ngFor="let item of first3Item">
+                            <div class="card">
+                              <p>{{item?.status}}</p>
+                              <img class="img-fluid" style="width: 100%; height: 150px"
+                                   alt="100%x280" src="{{item?.image}}">
+                              <div class="card-body">
+                                <h4 class="card-title">
+                                  {{item?.lessonNumber}}</h4>
+                                <p class="card-text">{{item?.lessonName}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <div class="row">
+                          <div class="col-md-4 mb-3" *ngFor="let item of items">
+                            <div class="card">
+                              <p>{{item?.status}}</p>
+                              <img class="img-fluid" style="width: 100%; height: 150px"
+                                   alt="100%x280" src="{{item?.image}}">
+                              <div class="card-body">
+                                <h4 class="card-title">
+                                  {{item?.lessonNumber}}</h4>
+                                <p class="card-text">{{item?.lessonName}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>

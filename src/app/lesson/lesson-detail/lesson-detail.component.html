@@ -1,5 +1,51 @@
 <app-header></app-header>
 <div class="container">
-  <button>Làm bài tập</button>
-  <button [routerLink]="['/topicTestCreate', idLesson]">Tạo bài kiểm tra</button>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/topicTestCreate', idLesson]">Tạo bài kiểm tra</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="getDetailTestByUserAndLesson()" class="nav-link">Xem lại bài</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="row">
+    <div class="col-12">
+      <iframe style="width: 100%; height: 600px"
+              [src]="videoUrl"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </div>
+    <div class="row">
+      <button [routerLink]="['/testCreate', idLesson]">Làm bài tập</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4" style="margin-top: 10px">
+      <div *ngFor="let c of testDTOS">
+        <div style="margin-bottom: 5px; margin-left: 10px;">
+          <div class="row">
+            <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid; background-color: white">
+              <p>{{c?.testName}}</p>
+              <img src="favicon.ico">
+              <button (click)="getDetailTest(c)">Xem</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div *ngFor="let c of testDTO?.multipleChoiceAnswerList">
+        <p>{{c?.questionNumber}}</p>
+        <p>{{c?.answer}}</p>
+      </div>
+    </div>
+  </div>
 </div>

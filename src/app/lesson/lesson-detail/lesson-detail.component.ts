@@ -2,6 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {LessonService} from "../../service/lesson.service";
 import {Lesson} from "../../model/lesson";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {TestService} from "../../service/test.service";
+import {TestDTO} from "../../model/test-dto";
+import {TopicTestService} from "../../service/topic-test.service";
+import {TopicTestDTO} from "../../model/topic-test-d-t-o";
+import {ReviewResults} from "../../model/review-results";
+import {ReviewResultsService} from "../../service/review-results.service";
 
 @Component({
   selector: 'app-lesson-detail',
@@ -12,8 +19,18 @@ export class LessonDetailComponent implements OnInit {
 
   idLesson?: any
   lesson?: Lesson
+  videoUrl!: SafeResourceUrl;
+  show = false;
+  testDTOS?: TestDTO[]
+  testDTO?: TestDTO
+  topicTestDTO?: TopicTestDTO
+  results?: ReviewResults
 
   constructor(private lessonService: LessonService,
+              private sanitizer: DomSanitizer,
+              private testService: TestService,
+              private resultsService: ReviewResultsService,
+              private topicTestService: TopicTestService,
               private activatedRoute: ActivatedRoute) {
   }
 
@@ -23,7 +40,24 @@ export class LessonDetailComponent implements OnInit {
     })
     this.lessonService.getDetailLesson(this.idLesson).subscribe(rs => {
       this.lesson = rs
+      if (this.lesson?.sourceUrl != null) {
+        this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.lesson?.sourceUrl);
+      }
     })
   }
 
+  getDetailTestByUserAndLesson() {
+    this.testService.getDetailTestByUserAndLesson("1", this.idLesson).subscribe(rs => {
+      this.testDTOS = rs
+    })
+  }
+
+  getDetailTest(testDTO: TestDTO) {
+    this.testDTO = testDTO
+    this.getReviewResults(testDTO?.id, this.idLesson);
+  }
+
+  getReviewResults(idTest: any, idLesson: any) {
+    this.resultsService.getReviewResults(idTest, idLesson).subscribe()
+  }
 }

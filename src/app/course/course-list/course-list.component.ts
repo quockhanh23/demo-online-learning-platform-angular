@@ -4,6 +4,7 @@ import {PageCourse} from "../../model/pageCourse";
 import {Course} from "../../model/course";
 import {LessonService} from "../../service/lesson.service";
 import {PageLesson} from "../../model/pageLesson";
+import {Lesson} from "../../model/lesson";
 
 @Component({
   selector: 'app-course-list',
@@ -16,6 +17,8 @@ export class CourseListComponent implements OnInit {
   pageLesson?: PageLesson
   course?: Course
   sizeLessons = 0
+  first3Item?: Lesson[]
+  items?: Lesson[]
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService) {
@@ -39,10 +42,18 @@ export class CourseListComponent implements OnInit {
   }
 
   getAllLessonByCourse(page: any, size: any, idCourse: any, searchText: string) {
+    this.first3Item = []
+    this.items = []
     this.lessonService.getAllLessonByCourse(page, size, idCourse, searchText).subscribe(rs => {
       this.pageLesson = rs
       if (this.pageLesson?.content != null) {
         this.sizeLessons = this.pageLesson?.content?.length
+        if (this.sizeLessons >= 3) {
+          this.first3Item = [this.pageLesson?.content[0], this.pageLesson?.content[1], this.pageLesson?.content[2]];
+        }
+        if (this.sizeLessons >= 4) {
+          this.items = this.pageLesson?.content?.slice(3);
+        }
       }
     })
   }

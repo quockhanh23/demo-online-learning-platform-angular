@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Test} from "../model/test";
 import {MultipleChoiceAnswer} from "../model/multiple-choice-answer";
 import {EssayAnswer} from "../model/essay-answer";
+import {TestDTO} from "../model/test-dto";
 
 const API_URL = "http://localhost:8080/api/tests"
 
@@ -38,4 +39,9 @@ export class TestService {
       }
     })
   }
+
+  getDetailTestByUserAndLesson(idUser: any, idLesson: any): Observable<TestDTO[]> {
+    return this.http.get<TestDTO[]>(API_URL + `/getDetailTestByUserAndLesson?idUser=${idUser}&idLesson=${idLesson}`)
+  }
+
 }

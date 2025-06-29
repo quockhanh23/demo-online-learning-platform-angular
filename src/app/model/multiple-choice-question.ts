@@ -8,4 +8,5 @@ export interface MultipleChoiceQuestion {
   answer4?: string;
   correctAnswer?: string;
   idTopicTest?: string;
+  answer?: string;
 }

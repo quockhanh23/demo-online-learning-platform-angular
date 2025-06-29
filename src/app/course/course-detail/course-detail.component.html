@@ -1,12 +1,10 @@
 <app-header></app-header>
 <div class="container">
-
   <div class="row">
     <div class="col-12">
       <h4>Thông tin khóa học</h4>
     </div>
   </div>
-
   <div class="row">
     <div class="col-6">
       <h2>{{course?.courseName}}</h2>
@@ -20,7 +18,71 @@
   <p>{{course?.startDate}}</p>
   <p>{{course?.endDate}}</p>
   <p>{{course?.status}}</p>
+
+  <div class="row">
+    <div class="col-12">
+      <section class="pt-5 pb-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="mb-3">Các bài học trong khóa</h3>
+            </div>
+            <div class="col-6 text-right">
+              <a class="mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                <span class="material-icons">arrow_back_ios</span>
+              </a>
+              <a class="mb-3" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                <span class="material-icons">arrow_forward_ios</span>
+              </a>
+            </div>
+            <div class="col-12">
+              <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="row">
+                      <div class="col-md-4 mb-3" *ngFor="let item of first3Item">
+                        <div class="card">
+                          <p>{{item?.status}}</p>
+                          <img class="img-fluid" style="width: 100%; height: 150px"
+                               [routerLink]="['/detailLesson', item?.id]"
+                               alt="100%x280" src="{{item?.image}}">
+                          <div class="card-body">
+                            <h4 class="card-title">
+                              {{item?.lessonNumber}}</h4>
+                            <p class="card-text">{{item?.lessonName}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="row">
+                      <div class="col-md-4 mb-3" *ngFor="let item of items">
+                        <div class="card">
+                          <p>{{item?.status}}</p>
+                          <img class="img-fluid" style="width: 100%; height: 150px"
+                               [routerLink]="['/detailLesson', item?.id]"
+                               alt="100%x280" src="{{item?.image}}">
+                          <div class="card-body">
+                            <h4 class="card-title">
+                              {{item?.lessonNumber}}</h4>
+                            <p class="card-text">{{item?.lessonName}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 </div>
+
+
 
 
 
