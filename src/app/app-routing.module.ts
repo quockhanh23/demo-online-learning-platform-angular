@@ -7,6 +7,7 @@ import {CourseDetailComponent} from "./course/course-detail/course-detail.compon
 import {CourseListComponent} from "./course/course-list/course-list.component";
 import {TopicTestComponent} from "./topic-test/topic-test/topic-test.component";
 import {CourseCreateComponent} from "./course/course-create/course-create.component";
+import {LessonCreateComponent} from "./lesson/lesson-create/lesson-create.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'createCourse', component: CourseCreateComponent,
+  },
+  {
+    path: 'createLesson/:id', component: LessonCreateComponent,
   },
   {
     path: 'detailLesson/:id', component: LessonDetailComponent,

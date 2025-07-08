@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,7 +18,7 @@ import {LessonCreateComponent} from './lesson/lesson-create/lesson-create.compon
 import {LessonDetailComponent} from './lesson/lesson-detail/lesson-detail.component';
 import {TestCreateComponent} from './test/test-create/test-create.component';
 import {TopicTestCreateComponent} from './topic-test/topic-test-create/topic-test-create.component';
-import { TopicTestComponent } from './topic-test/topic-test/topic-test.component';
+import {TopicTestComponent} from './topic-test/topic-test/topic-test.component';
 
 @NgModule({
   declarations: [

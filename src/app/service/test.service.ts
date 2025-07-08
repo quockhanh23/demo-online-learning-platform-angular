@@ -24,6 +24,14 @@ export class TestService {
     })
   }
 
+  updateTime(idTest: any, time: any): Observable<any> {
+    return this.http.post<any>(API_URL + `/updateTime?idTest=${idTest}&time=${time}`, {
+      headers: {
+        Authorization: `Bearer ${""}`,
+      }
+    })
+  }
+
   createMultipleChoiceAnswer(multipleChoiceAnswers: MultipleChoiceAnswer[]): Observable<any> {
     return this.http.post<any>(API_URL + `/createMultipleChoiceAnswer`, multipleChoiceAnswers, {
       headers: {

@@ -8,4 +8,5 @@ export interface Test {
   updatedDate?: string;
   idStudent?: string;
   idLesson?: string;
+  time?: string;
 }

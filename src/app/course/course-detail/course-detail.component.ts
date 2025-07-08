@@ -5,7 +5,6 @@ import {ActivatedRoute} from "@angular/router";
 import {LessonService} from "../../service/lesson.service";
 import {Lesson} from "../../model/lesson";
 import {PageLesson} from "../../model/pageLesson";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-course-detail',
@@ -21,6 +20,7 @@ export class CourseDetailComponent implements OnInit {
   first3Item?: Lesson[]
   items?: Lesson[]
   pageLesson?: PageLesson
+  role?: any
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService,

@@ -1,5 +1,7 @@
 <app-header></app-header>
 <div class="container">
+     <span [routerLink]="['/detailLesson', idLesson]" style="font-size: 35px; cursor: pointer;"
+           class="material-icons hoverYellowColor">arrow_back</span>
   <div class="row" *ngIf="topicTestCreate == null">
     <form [formGroup]="topicForm" (ngSubmit)="createTopicTest()">
       <input formControlName="testName">

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {TestService} from "../../service/test.service";
 import {TopicTestService} from "../../service/topic-test.service";
 import {UserService} from "../../service/user.service";
@@ -43,13 +43,24 @@ export class TestCreateComponent implements OnInit {
     });
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(event: Event) {
+    // Gọi API lưu trạng thái, đóng WebSocket, v.v...
+    console.log('Trình duyệt đang được đóng hoặc reload.');
+    // Optionally hiển thị cảnh báo:
+    event.preventDefault();
+
+    this.updateTime();
+    // @ts-ignore
+    return (event.returnValue = 'Bạn có chắc chắn muốn rời khỏi trang này?');
+  }
+
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(rs => {
       this.idLesson = rs.get('idLesson')
     })
     this.getDetailTopicTest()
     this.createTest()
-    this.timer(999)
   }
 
   createTest() {
@@ -58,7 +69,15 @@ export class TestCreateComponent implements OnInit {
     }
     this.testService.createTest(test).subscribe(rs => {
       this.test = rs
+      this.display = this.test?.time
       this.idTest = this.test?.id
+      this.timer(this.display)
+    })
+  }
+
+  updateTime() {
+    let value = this.display.split(":")[0]
+    this.testService.updateTime(this.idTest, value).subscribe(() => {
     })
   }
 
@@ -137,6 +156,7 @@ export class TestCreateComponent implements OnInit {
   }
 
   timer(minute: number) {
+    console.log(minute);
     // let minute = 1;
     let seconds: number = minute * 60;
     let textSec: any = "0";
@@ -154,7 +174,7 @@ export class TestCreateComponent implements OnInit {
       } else textSec = statSec;
 
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-
+      console.log("this.display : " + this.display);
       if (seconds == 0) {
         console.log("finished");
         clearInterval(timer);

@@ -18,8 +18,8 @@ export class LessonService {
     return this.http.get<PageLesson>(API_URL + `/getAllLessonByCourse?page=${page}&size=${size}&idCourse=${idCourse}&searchText=${searchText}`)
   }
 
-  createLesson(lesson: Lesson): Observable<any> {
-    return this.http.post<any>(API_URL + `/createLesson`, lesson, {
+  createLesson(lesson: Lesson, idUser: any): Observable<any> {
+    return this.http.post<any>(API_URL + `/createLesson?idUser=${idUser}`, lesson, {
       headers: {
         Authorization: `Bearer ${""}`,
       }

@@ -1,5 +1,7 @@
 <app-header></app-header>
 <div class="container">
+     <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+           class="material-icons hoverYellowColor">arrow_back</span>
   <div class="row">
     <div class="col-12">
       <h4>Thông tin khóa học</h4>
@@ -9,9 +11,12 @@
     <div class="col-6">
       <h2>{{course?.courseName}}</h2>
     </div>
-    <div class="col-6">
+    <div class="col-6" align="right" *ngIf="role != null">
       <button *ngIf="value == '2'" class="btn btn-info" (click)="courseRegister()">Đăng kí học khóa này</button>
       <button *ngIf="value  == '1'" class="btn btn-info">Học ngay</button>
+    </div>
+    <div class="col-6" align="right">
+      <button [routerLink]="['/createLesson', course?.id]" class="btn btn-info">Thêm bài học</button>
     </div>
   </div>
   <p>{{course?.courseDescription}}</p>

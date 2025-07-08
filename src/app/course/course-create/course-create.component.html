@@ -1,5 +1,7 @@
 <app-header></app-header>
 <div class="container">
+     <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+           class="material-icons hoverYellowColor">arrow_back</span>
   <form [formGroup]="courseForm" (ngSubmit)="createCourse()">
     <div style="margin-left: 10px">
       <div class="row align-items-center">
