@@ -1,0 +1,19 @@
+<app-header></app-header>
+<app-title [message]="title"></app-title>
+<div class="container" style="margin-top: 10px; margin-bottom: 10px; background-color: whitesmoke; border-radius: 5px">
+   <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+         class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row">
+    <div class="col-6">
+
+    </div>
+    <div class="col-6">
+      <div style="margin-top: 15px" class="alert alert-danger" role="alert" *ngIf="messageError != null">
+        {{messageError}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

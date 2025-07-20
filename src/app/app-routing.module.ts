@@ -8,10 +8,18 @@ import {CourseListComponent} from "./course/course-list/course-list.component";
 import {TopicTestComponent} from "./topic-test/topic-test/topic-test.component";
 import {CourseCreateComponent} from "./course/course-create/course-create.component";
 import {LessonCreateComponent} from "./lesson/lesson-create/lesson-create.component";
+import {LoginComponent} from "./user/login/login.component";
+import {RegisterComponent} from "./user/register/register.component";
 
 const routes: Routes = [
   {
     path: '', component: CourseListComponent,
+  },
+  {
+    path: 'login', component: LoginComponent,
+  },
+  {
+    path: 'register', component: RegisterComponent,
   },
   {
     path: 'detailCourse/:id', component: CourseDetailComponent,

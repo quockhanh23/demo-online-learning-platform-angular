@@ -6,7 +6,6 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {TestService} from "../../service/test.service";
 import {TestDTO} from "../../model/test-dto";
 import {TopicTestService} from "../../service/topic-test.service";
-import {ReviewResults} from "../../model/review-results";
 import {ReviewResultsService} from "../../service/review-results.service";
 
 @Component({
@@ -22,7 +21,6 @@ export class LessonDetailComponent implements OnInit {
   show = false;
   testDTOS?: TestDTO[]
   testDTO?: TestDTO
-  results?: ReviewResults
 
   constructor(private lessonService: LessonService,
               private sanitizer: DomSanitizer,

@@ -1,11 +1,9 @@
 import {Role} from "./role";
-import {Course} from "./course";
 
-export interface User {
+export interface UserDTO {
+
   id?: string;
   username?: string;
-  password?: string;
-  confirmPassword?: string;
   fullName?: string;
   email?: string;
   phoneNumber?: string;
@@ -14,5 +12,4 @@ export interface User {
   status?: string;
   education?: string;
   roles?: Role[];
-  courses?: Course[];
 }

@@ -7,8 +7,7 @@ import {DialogComponent} from './dialog/dialog.component';
 import {MaterialModule} from "./material/material.module";
 import {ToastrModule} from "ngx-toastr";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {HeaderComponent} from './header/header.component';
-import {FooterComponent} from './footer/footer.component';
+
 import {CourseCreateComponent} from './course/course-create/course-create.component';
 import {CourseDetailComponent} from './course/course-detail/course-detail.component';
 import {CourseListComponent} from './course/course-list/course-list.component';
@@ -19,6 +18,14 @@ import {LessonDetailComponent} from './lesson/lesson-detail/lesson-detail.compon
 import {TestCreateComponent} from './test/test-create/test-create.component';
 import {TopicTestCreateComponent} from './topic-test/topic-test-create/topic-test-create.component';
 import {TopicTestComponent} from './topic-test/topic-test/topic-test.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {LoginComponent} from "./user/login/login.component";
+import {RegisterComponent} from "./user/register/register.component";
+import {UserDetailComponent} from "./user/user-detail/user-detail.component";
+import {SnackbarComponent} from "./share/snackbar/snackbar.component";
+import {TitleComponent} from "./share/title/title.component";
+import {FooterComponent} from "./share/footer/footer.component";
+import {HeaderComponent} from "./share/header/header.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +41,11 @@ import {TopicTestComponent} from './topic-test/topic-test/topic-test.component';
     TestCreateComponent,
     TopicTestCreateComponent,
     TopicTestComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserDetailComponent,
+    SnackbarComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +56,8 @@ import {TopicTestComponent} from './topic-test/topic-test/topic-test.component';
     BrowserAnimationsModule,
     MaterialModule,
     ToastrModule.forRoot(),
-    NgbModule
+    NgbModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

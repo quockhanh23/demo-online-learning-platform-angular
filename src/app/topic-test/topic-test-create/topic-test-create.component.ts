@@ -4,7 +4,7 @@ import {TopicTestDTO} from "../../model/topic-test-d-t-o";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EssayQuestion} from "../../model/essay-question";
 import {MultipleChoiceQuestion} from "../../model/multiple-choice-question";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-topic-test-create',
@@ -32,6 +32,7 @@ export class TopicTestCreateComponent implements OnInit {
 
   constructor(private topicTestService: TopicTestService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private fb: FormBuilder) {
     this.myForm = this.fb.group({
       items: this.fb.array([]),

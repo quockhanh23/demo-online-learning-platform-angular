@@ -19,25 +19,38 @@ export class CourseListComponent implements OnInit {
   sizeLessons = 0
   first3Item?: Lesson[]
   items?: Lesson[]
+  currentPage?: number = 0;
+  currentPageAddOne?: number = 1;
+  previousPageNumber?: number = 1;
+  currentNumber?: number = 2;
+  nextPageNumber?: number = 3;
+  size?: number = 0;
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService) {
   }
 
   ngOnInit(): void {
-    this.getAllCourse(0, 10);
+    this.getAllCourse(0, 8);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   getAllCourse(page: any, size: any) {
-    this.courseService.getAllCourse(page, size, "").subscribe(rs => {
+    let search = (document.getElementById("search") as HTMLSelectElement).value
+    if (search == null) search = ""
+    this.courseService.getAllCourse(page, size, search).subscribe(rs => {
       this.pageCourse = rs;
+      this.size = this.pageCourse.content?.length
     })
   }
 
   getDetailCourse(idCourse: any) {
     this.courseService.getDetailCourse(idCourse).subscribe(rs => {
       this.course = rs
-      this.getAllLessonByCourse(0, 10, this.course?.id, "")
+      this.getAllLessonByCourse(0, 8, this.course?.id, "")
     })
   }
 
@@ -56,5 +69,36 @@ export class CourseListComponent implements OnInit {
         }
       }
     })
+  }
+
+  previousPage() {
+    if (this.currentPage != null && this.currentPage > 0) {
+      this.currentPage--;
+      this.currentPageAddOne = this.currentPage + 1
+      this.getAllCourse(this.currentPage, 8);
+      if (this.currentPage == 0 || this.currentPage == 1) {
+        this.currentNumber = 2
+        this.previousPageNumber = 1
+        this.nextPageNumber = 3
+      } else {
+        this.currentNumber = this.currentPage + 1
+        this.previousPageNumber = this.currentPage
+        this.nextPageNumber = this.currentPage + 2
+      }
+    }
+  }
+
+  nextPage() {
+    if (this.pageCourse?.content == null || this.pageCourse?.content.length == 0) return
+    if (this.currentPage != null && (this.currentPage + 1)
+      // @ts-ignore
+      * this.page?.page?.number < this.page?.page?.totalElements) {
+      this.currentPage++;
+      this.currentPageAddOne = this.currentPage + 1
+      this.getAllCourse(this.currentPage, 8);
+      this.currentNumber = this.currentPage + 1
+      this.previousPageNumber = this.currentPage
+      this.nextPageNumber = this.currentPage + 2
+    }
   }
 }
