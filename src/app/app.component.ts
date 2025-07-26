@@ -1,5 +1,4 @@
-import {Component, HostListener} from '@angular/core';
-import {UploadService} from "./service/upload-service.service";
+import {Component} from '@angular/core';
 import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 
 @Component({

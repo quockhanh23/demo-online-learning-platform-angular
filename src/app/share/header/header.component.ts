@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +14,7 @@ export class HeaderComponent implements OnInit {
   role?: any
   isAdmin = false;
 
-  constructor(private router: Router,) {
+  constructor() {
     this.idUser = localStorage.getItem("idUser")
     console.log("this.idUser: " + this.idUser)
     this.username = localStorage.getItem("username")
@@ -24,6 +23,15 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkAdmin();
+  }
+
+  checkAdmin() {
+    if (this.role != null) {
+      let index = this.role?.indexOf("ADMIN")
+      console.log("index:" + index)
+      if (index > 0) this.isAdmin = true;
+    }
   }
 
   logout() {

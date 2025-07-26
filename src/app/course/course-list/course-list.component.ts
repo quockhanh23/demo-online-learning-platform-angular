@@ -92,7 +92,7 @@ export class CourseListComponent implements OnInit {
     if (this.pageCourse?.content == null || this.pageCourse?.content.length == 0) return
     if (this.currentPage != null && (this.currentPage + 1)
       // @ts-ignore
-      * this.page?.page?.number < this.page?.page?.totalElements) {
+      * this.pageCourse?.page?.number < this.pageCourse?.page?.totalElements) {
       this.currentPage++;
       this.currentPageAddOne = this.currentPage + 1
       this.getAllCourse(this.currentPage, 8);

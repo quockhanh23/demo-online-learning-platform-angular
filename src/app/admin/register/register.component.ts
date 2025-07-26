@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../service/user.service";
-import {Router} from "@angular/router";
 import {User} from "../../model/user";
 import {whitespaceValidator} from "../../app.component";
+import {AdminService} from "../../service/admin.service";
 
 @Component({
   selector: 'app-register',
@@ -26,9 +25,8 @@ export class RegisterComponent implements OnInit {
     role: new FormControl('',),
   });
 
-  constructor(private userService: UserService,
-              private formBuilder: FormBuilder,
-              private router: Router) {
+  constructor(private adminService: AdminService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -45,8 +43,9 @@ export class RegisterComponent implements OnInit {
       education: this.userForm.value.education,
     }
     let role = this.userForm.value.role
-    this.userService.register(user, role).subscribe(rs => {
-      this.router.navigate(['/login']).then()
+    if ("Học sinh" == role) role = "STUDENT"
+    if ("Giáo viên" == role) role = "TEACHER"
+    this.adminService.register(user, role).subscribe(rs => {
       this.user = rs;
     }, error => {
       this.messageError = error.error.message

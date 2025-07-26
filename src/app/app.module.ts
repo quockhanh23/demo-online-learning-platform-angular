@@ -20,12 +20,13 @@ import {TopicTestCreateComponent} from './topic-test/topic-test-create/topic-tes
 import {TopicTestComponent} from './topic-test/topic-test/topic-test.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {LoginComponent} from "./user/login/login.component";
-import {RegisterComponent} from "./user/register/register.component";
+import {RegisterComponent} from "./admin/register/register.component";
 import {UserDetailComponent} from "./user/user-detail/user-detail.component";
 import {SnackbarComponent} from "./share/snackbar/snackbar.component";
 import {TitleComponent} from "./share/title/title.component";
 import {FooterComponent} from "./share/footer/footer.component";
 import {HeaderComponent} from "./share/header/header.component";
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {HeaderComponent} from "./share/header/header.component";
     RegisterComponent,
     UserDetailComponent,
     SnackbarComponent,
-    TitleComponent
+    TitleComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

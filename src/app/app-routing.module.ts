@@ -9,8 +9,9 @@ import {TopicTestComponent} from "./topic-test/topic-test/topic-test.component";
 import {CourseCreateComponent} from "./course/course-create/course-create.component";
 import {LessonCreateComponent} from "./lesson/lesson-create/lesson-create.component";
 import {LoginComponent} from "./user/login/login.component";
-import {RegisterComponent} from "./user/register/register.component";
+import {RegisterComponent} from "./admin/register/register.component";
 import {UserDetailComponent} from "./user/user-detail/user-detail.component";
+import {AdminPageComponent} from "./admin/admin-page/admin-page.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent,
+  },
+  {
+    path: 'adminPage', component: AdminPageComponent,
   },
   {
     path: 'register', component: RegisterComponent,
