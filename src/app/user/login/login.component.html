@@ -6,21 +6,22 @@
          class="material-icons hoverYellowColor">arrow_back</span>
   <div class="row">
     <div class="col-6">
+      <img style="width: 100%; margin-top: 10px; border-radius: 5px" src="../../../assets/image/e-learning.jpg">
     </div>
     <div class="col-6">
       <form [formGroup]="userForm" (ngSubmit)="login()">
         <div class="row align-items-center">
           <div class="col mt-4">
-            <label for="1">Tên Đăng nhập:</label>
+            <label style="font-size: 17px" for="1">Tên Đăng nhập:</label>
             <input id="1" type="text" formControlName="username" class="form-control" placeholder="Tên đăng nhập *">
             <span style="font-size: 13px">Tối đa 60 kí tự</span>
           </div>
         </div>
         <div class="row align-items-center">
           <div class="col mt-4">
-            <label for="2">Mật khẩu:</label>
+            <label style="font-size: 17px" for="2">Mật khẩu:</label>
             <input id="2" type="password" formControlName="password" class="form-control" placeholder="Mật khẩu *">
-            <span style="font-size: 13px">Tối đa 32 kí tự</span>
+            <span style="font-size: 13px">Tối đa 40 kí tự</span>
           </div>
         </div>
         <div class="row align-items-center">

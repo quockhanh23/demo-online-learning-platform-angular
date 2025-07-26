@@ -20,8 +20,10 @@ export class RegisterComponent implements OnInit {
     fullName: new FormControl('', [Validators.required, whitespaceValidator()]),
     password: new FormControl('', [Validators.required, whitespaceValidator()]),
     confirmPassword: new FormControl('', [Validators.required, whitespaceValidator()]),
-    phone: new FormControl('',),
+    phoneNumber: new FormControl('',),
     email: new FormControl('',),
+    education: new FormControl('',),
+    role: new FormControl('',),
   });
 
   constructor(private userService: UserService,
@@ -38,10 +40,12 @@ export class RegisterComponent implements OnInit {
       fullName: this.userForm.value.fullName,
       password: this.userForm.value.password,
       confirmPassword: this.userForm.value.confirmPassword,
-      phone: this.userForm.value.phone,
+      phoneNumber: this.userForm.value.phoneNumber,
       email: this.userForm.value.email,
+      education: this.userForm.value.education,
     }
-    this.userService.register(user).subscribe(rs => {
+    let role = this.userForm.value.role
+    this.userService.register(user, role).subscribe(rs => {
       this.router.navigate(['/login']).then()
       this.user = rs;
     }, error => {

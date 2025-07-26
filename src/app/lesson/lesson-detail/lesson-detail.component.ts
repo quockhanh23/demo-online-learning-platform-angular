@@ -21,6 +21,7 @@ export class LessonDetailComponent implements OnInit {
   show = false;
   testDTOS?: TestDTO[]
   testDTO?: TestDTO
+  open = false;
 
   constructor(private lessonService: LessonService,
               private sanitizer: DomSanitizer,
@@ -42,6 +43,10 @@ export class LessonDetailComponent implements OnInit {
     })
   }
 
+  scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
   getDetailTestByUserAndLesson() {
     this.testService.getDetailTestByUserAndLesson("1", this.idLesson).subscribe(rs => {
       this.testDTOS = rs
@@ -51,6 +56,7 @@ export class LessonDetailComponent implements OnInit {
   getDetailTest(testDTO: TestDTO) {
     this.testDTO = testDTO
     this.getReviewResults(testDTO?.id, this.idLesson);
+    this.open = true;
   }
 
   getReviewResults(idTest: any, idLesson: any) {

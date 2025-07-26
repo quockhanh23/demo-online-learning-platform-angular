@@ -13,6 +13,7 @@ export interface User {
   updatedDate?: string;
   status?: string;
   education?: string;
+  avatar?: string;
   roles?: Role[];
   courses?: Course[];
 }

@@ -1,7 +1,11 @@
 <app-header></app-header>
 <div class="container" style="background-color: #e2eaef">
   <div class="row">
-    <div class="col-4"></div>
+    <div class="col-4">
+      <div style="margin-top: 15px">
+        <h2>Học trực tuyến</h2>
+      </div>
+    </div>
     <div class="col-3"></div>
     <div class="col-5" style="margin-top: 10px;">
       <form class="form-inline my-2 my-lg-0">
@@ -27,7 +31,8 @@
                   <p>{{c?.courseDescription}}</p>
                 </div>
                 <div class="col-3" align="right">
-                  <img src="favicon.ico">
+                  <img style="border-radius: 50%; width: 50px; height: 50px"
+                       src="../../../assets/image/Harvard-logo.png">
                 </div>
               </div>
               <div class="row">
@@ -43,12 +48,19 @@
     <div class="col-8" *ngIf="course != null" style="margin-top: 10px">
       <div class="row" style="margin-bottom: 50px">
         <div class="col-8">
+          <div class="status-button" style="margin-bottom: 15px" *ngIf="course?.status == 'ACTIVE'">
+            <div class="status-indicator online"></div>
+            <span>Đang hoạt động</span>
+          </div>
+          <div class="status-button" style="margin-bottom: 15px" *ngIf="course?.status == 'INACTIVE'">
+            <div class="status-indicator busy"></div>
+            <span>Không hoạt động</span>
+          </div>
           <div>
             <h3>{{course?.courseName}}</h3>
             <p>{{course?.courseDescription}}</p>
-            <p>{{course?.startDate}}</p>
-            <p>{{course?.endDate}}</p>
-            <p>{{course?.status}}</p>
+            <p>{{course?.startDate | date: 'dd/MM/yyyy'}}</p>
+            <p>{{course?.endDate | date: 'dd/MM/yyyy'}}</p>
             <p>Tổng số bài học trong khóa: {{sizeLessons}}</p>
           </div>
           <button style="margin-top: 20px" class="btn btn-info" [routerLink]="['/detailCourse', course?.id]">
@@ -56,7 +68,7 @@
           </button>
         </div>
         <div class="col-4">
-          <img style="width: 100%; border-radius: 5px" src="../../../assets/image/harvard.jpg">
+          <img style="width: 100%; border-radius: 5px" src="{{course?.logo}}">
         </div>
       </div>
       <hr>
@@ -119,9 +131,11 @@
           </section>
         </div>
       </div>
+      <img style="width: 100%; margin-top: 20px; border-radius: 5px" src="../../../assets/image/e-learning.jpg">
     </div>
     <div class="col-8" *ngIf="course == null">
-      <img style="width: 100%; margin-top: 150px; border-radius: 5px" src="../../../assets/image/harvard.jpg">
+      <img style="width: 100%; margin-top: 10px; border-radius: 5px" src="../../../assets/image/e-learning.jpg">
+      <img style="width: 100%; margin-top: 50px; border-radius: 5px" src="../../../assets/image/e-learning2.jpg">
     </div>
   </div>
 

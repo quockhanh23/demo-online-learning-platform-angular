@@ -7,8 +7,20 @@
     <div class="col-3"></div>
     <div class="col-6" style="margin-top: 20px">
       <form [formGroup]="topicForm" (ngSubmit)="createTopicTest()">
-        <input class="form-control" formControlName="testName">
-        <input style="margin-top: 20px" class="form-control" formControlName="type">
+        <div class="row align-items-center">
+          <div class="col mt-4">
+            <label  style="font-size: 17px">Tên bài kiểm tra</label>
+            <input class="form-control" formControlName="testName">
+            <span style="font-size: 13px">Tối đa 60 kí tự</span>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col mt-4">
+            <label style="font-size: 17px">Thể loại</label>
+            <input style="margin-top: 20px" class="form-control" formControlName="type">
+            <span style="font-size: 13px">Tối đa 60 kí tự</span>
+          </div>
+        </div>
         <button style="margin-top: 20px" type="submit" class="btn btn-primary">Thêm</button>
       </form>
     </div>

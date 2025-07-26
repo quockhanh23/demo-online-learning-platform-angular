@@ -4,12 +4,12 @@
    <span [routerLink]="['/detailCourse', lesson?.idCourse]" style="font-size: 35px; cursor: pointer;"
          class="material-icons hoverYellowColor">arrow_back</span>
 
-  <div class="row" style="margin-top: 10px">
+  <div class="row" style="margin-top: 10px;">
     <div class="col-6">
       <span style="font-size: 35px" matTooltip="Tạo bài kiểm tra" [routerLink]="['/topicTestCreate', idLesson]"
             class="material-icons cursorTag hoverYellowColor">add_circle</span>
       <span style="font-size: 35px" matTooltip="Xem lại bài" class="material-icons cursorTag hoverYellowColor"
-            (click)="getDetailTestByUserAndLesson()">article</span>
+            (click)="getDetailTestByUserAndLesson(); scrollToBottom()">article</span>
     </div>
     <div class="col-6" align="right">
       <span style="font-size: 35px" matTooltip="Làm bài tập" [routerLink]="['/testCreate', idLesson]"
@@ -56,3 +56,4 @@
     </div>
   </div>
 </div>
+

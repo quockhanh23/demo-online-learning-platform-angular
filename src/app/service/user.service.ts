@@ -23,8 +23,8 @@ export class UserService {
     return this.http.post<User>(API_URL + `/login`, user)
   }
 
-  register(user: Object): Observable<User> {
-    return this.http.post<User>(API_URL + `/register`, user)
+  register(user: Object, role: any): Observable<User> {
+    return this.http.post<User>(API_URL + `/register?role=${role}`, user)
   }
 
   updateUser(user: Object, token: any): Observable<UserDTO> {

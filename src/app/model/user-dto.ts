@@ -11,5 +11,6 @@ export interface UserDTO {
   updatedDate?: string;
   status?: string;
   education?: string;
+  avatar?: string;
   roles?: Role[];
 }

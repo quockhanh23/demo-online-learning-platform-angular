@@ -10,6 +10,7 @@ import {CourseCreateComponent} from "./course/course-create/course-create.compon
 import {LessonCreateComponent} from "./lesson/lesson-create/lesson-create.component";
 import {LoginComponent} from "./user/login/login.component";
 import {RegisterComponent} from "./user/register/register.component";
+import {UserDetailComponent} from "./user/user-detail/user-detail.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
   },
   {
     path: 'register', component: RegisterComponent,
+  },
+  {
+    path: 'detailUser/:id', component: UserDetailComponent,
   },
   {
     path: 'detailCourse/:id', component: CourseDetailComponent,
