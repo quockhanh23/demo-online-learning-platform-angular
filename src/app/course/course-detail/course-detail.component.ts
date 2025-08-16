@@ -60,18 +60,15 @@ export class CourseDetailComponent implements OnInit {
     let searchLesson = (document.getElementById("searchLesson") as HTMLSelectElement).value
     this.first3Item = []
     this.items = []
-    this.lessonService.getAllLessonByCourse(page, size, idCourse, searchLesson).subscribe(rs => {
-      this.pageLesson = rs
-      if (this.pageLesson?.content != null) {
-        this.sizeLessons = this.pageLesson?.content?.length
-        if (this.sizeLessons >= 3) {
-          this.first3Item = [this.pageLesson?.content[0], this.pageLesson?.content[1], this.pageLesson?.content[2]];
-        } else {
-          this.first3Item = this.pageLesson?.content
-        }
-        if (this.sizeLessons >= 4) {
-          this.items = this.pageLesson?.content?.slice(3);
-        }
+    this.lessonService.getAllLessonByCourseList(idCourse, searchLesson).subscribe(rs => {
+      this.sizeLessons = rs?.length
+      if (this.sizeLessons >= 3) {
+        this.first3Item = [rs[0], rs[1], rs[2]];
+      } else {
+        this.first3Item = rs
+      }
+      if (this.sizeLessons >= 4) {
+        this.items = rs.slice(3);
       }
     })
   }

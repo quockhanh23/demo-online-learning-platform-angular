@@ -18,8 +18,17 @@ export class AdminService {
     return this.http.post<User>(API_URL + `/createUser?role=${role}`, user)
   }
 
+  action(idAdmin: any, idUser: any, action: any): Observable<void> {
+    return this.http.put<void>(API_URL + `/action?idAdmin=${idAdmin}&idUser=${idUser}&action=${action}`, {})
+  }
+
   getAllUser(page: any, size: any, searchText: string, idUserLogin: any): Observable<PageUser> {
     return this.http.get<PageUser>(API_URL +
       `/getAllUser?idUserLogin=${idUserLogin}&page=${page}&size=${size}&searchText=${searchText}`)
+  }
+
+  getAllUserByRole(page: any, size: any, role: string, idUserLogin: any): Observable<PageUser> {
+    return this.http.get<PageUser>(API_URL +
+      `/getAllUserByRole?idUserLogin=${idUserLogin}&page=${page}&size=${size}&role=${role}`)
   }
 }

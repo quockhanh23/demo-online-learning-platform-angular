@@ -29,13 +29,38 @@ export class AdminPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  action(idUser: any, action: any) {
+    this.adminService.action(this.idUserLogin, idUser, action).subscribe(() => {
+      this.getAllUser(this.currentPage, 10);
+    })
+  }
+
+  changeToGetAllUser() {
+    this.getAllUser(this.currentPage, 10);
+  }
+
   getAllUser(page: any, size: any) {
-    let search = (document.getElementById("search") as HTMLSelectElement).value
+    const searchElement = document.getElementById("search") as HTMLSelectElement | null;
+    let search = searchElement?.value || '';
     if (search == null) search = ""
     this.adminService.getAllUser(page, size, search, this.idUserLogin).subscribe(rs => {
       this.pageUser = rs;
       this.userDTOs = this.pageUser?.content;
-      this.size = this.pageUser.content?.length
+      this.size = this.pageUser?.content?.length
+      if (this.size != null && this.size < 2) {
+        this.height = "height: 300px"
+      }
+      if (this.size != null && this.size < 5 && this.size > 2) {
+        this.height = "height: 150px"
+      }
+    })
+  }
+
+  getAllUserByRole(role: any) {
+    this.adminService.getAllUserByRole(this.currentPage, 10, role, this.idUserLogin).subscribe(rs => {
+      this.pageUser = rs;
+      this.userDTOs = this.pageUser?.content;
+      this.size = this.pageUser?.content?.length
       if (this.size != null && this.size < 2) {
         this.height = "height: 300px"
       }

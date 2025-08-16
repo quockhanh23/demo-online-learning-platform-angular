@@ -13,4 +13,5 @@ export interface UserDTO {
   education?: string;
   avatar?: string;
   roles?: Role[];
+  role?: string
 }

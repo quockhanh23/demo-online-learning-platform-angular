@@ -27,6 +27,7 @@ import {TitleComponent} from "./share/title/title.component";
 import {FooterComponent} from "./share/footer/footer.component";
 import {HeaderComponent} from "./share/header/header.component";
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -49,18 +50,19 @@ import { AdminPageComponent } from './admin/admin-page/admin-page.component';
     TitleComponent,
     AdminPageComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ToastrModule.forRoot(),
-    NgbModule,
-    MatTooltipModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ToastrModule.forRoot(),
+        NgbModule,
+        MatTooltipModule,
+        MatMenuModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

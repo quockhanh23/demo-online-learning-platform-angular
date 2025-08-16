@@ -18,6 +18,10 @@ export class LessonService {
     return this.http.get<PageLesson>(API_URL + `/getAllLessonByCourse?page=${page}&size=${size}&idCourse=${idCourse}&searchText=${searchText}`)
   }
 
+  getAllLessonByCourseList(idCourse: any, searchText: string): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(API_URL + `/getAllLessonByCourseList?idCourse=${idCourse}&searchText=${searchText}`)
+  }
+
   createLesson(lesson: Lesson, idUser: any): Observable<any> {
     return this.http.post<any>(API_URL + `/createLesson?idUser=${idUser}`, lesson, {
       headers: {
