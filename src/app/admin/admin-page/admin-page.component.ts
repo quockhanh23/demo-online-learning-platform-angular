@@ -47,10 +47,11 @@ export class AdminPageComponent implements OnInit {
       this.pageUser = rs;
       this.userDTOs = this.pageUser?.content;
       this.size = this.pageUser?.content?.length
-      if (this.size != null && this.size < 2) {
+      if (this.size != null && this.size <= 2) {
         this.height = "height: 300px"
       }
       if (this.size != null && this.size < 5 && this.size > 2) {
+        console.log("Vào đây 2")
         this.height = "height: 150px"
       }
     })

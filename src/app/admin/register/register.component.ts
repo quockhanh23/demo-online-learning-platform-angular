@@ -4,6 +4,8 @@ import {User} from "../../model/user";
 import {whitespaceValidator} from "../../app.component";
 import {AdminService} from "../../service/admin.service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../dialog/dialog.component";
 
 @Component({
   selector: 'app-register',
@@ -28,6 +30,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private adminService: AdminService,
               private formBuilder: FormBuilder,
+              private dialog: MatDialog,
               private router: Router) {
   }
 
@@ -50,6 +53,7 @@ export class RegisterComponent implements OnInit {
     this.adminService.register(user, role).subscribe(rs => {
       this.user = rs;
       this.router.navigate(['/adminPage']).then()
+      this.dialog.open(DialogComponent)
     }, error => {
       this.messageError = error.error.message
     })

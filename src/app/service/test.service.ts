@@ -52,4 +52,8 @@ export class TestService {
     return this.http.get<TestDTO[]>(API_URL + `/getDetailTestByUserAndLesson?idUser=${idUser}&idLesson=${idLesson}`)
   }
 
+  getDetailTestByIdUserAndIdTopicTest(idUser: any, idTopicTest: any): Observable<TestDTO> {
+    return this.http.get<TestDTO>(API_URL + `/getDetailTestByIdUserAndIdTopicTest?idUser=${idUser}&idTopicTest=${idTopicTest}`)
+  }
+
 }

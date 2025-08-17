@@ -1,82 +1,100 @@
 <app-header></app-header>
 <app-title message="Làm bài tập"></app-title>
-<div class="container">
+<div class="container" style="background-color: whitesmoke">
      <span [routerLink]="['/detailLesson', idLesson]" style="font-size: 35px; cursor: pointer;"
            class="material-icons hoverYellowColor">arrow_back</span>
-  <div class="row" style="margin-bottom: 5px">
-    <span style="font-size: 20px">Thời gian làm bài: </span>
-    <span style="font-size: 20px; color: green">{{display}}</span>
-  </div>
-  <hr>
+  <hr style="margin-top: 0px">
   <div class="row">
-    <h2>{{topicTestDTO?.testName}}</h2>
+    <div class="col-6">
+      <h2>{{topicTestDTO?.testName}}</h2>
+    </div>
+    <div class="col-6" align="right">
+      <span style="font-size: 20px">Thời gian làm bài: </span>
+      <span style="font-size: 20px; color: green">{{display}}</span>
+    </div>
   </div>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <h2>* Phần trắc nghiệm</h2>
+  <hr style="margin-top: 0px">
+  <div class="row" *ngIf="message != null">
+    <div class="alert alert-danger" role="alert">
+      {{message}}
     </div>
-    <div class="row">
-      <div class="col-12">
-        <div formArrayName="items">
-          <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
-            <div style="font-size: 18px; margin-bottom: 5px">
-              <span>{{ item.get('questionNumber')?.value }}</span><span>. </span>
-              <span>{{ item.get('content')?.value }}</span>
-            </div>
-            <div class="row" style="margin-bottom: 5px">
-              <div class="col-3">
-                <label for="answer1">Đáp án A: </label>
-                <br>
-                <input id="answer1" type="radio" value="{{ item.get('answer1')?.value }}" formControlName="answer">
-                <span>{{ item.get('answer1')?.value }}</span>
-              </div>
-              <div class="col-3">
-                <label for="answer2">Đáp án B: </label>
-                <br>
-                <input id="answer2" type="radio" value="{{ item.get('answer2')?.value }}" formControlName="answer">
-                <span>{{ item.get('answer2')?.value }}</span>
-
-              </div>
-              <div class="col-3">
-                <label for="answer3">Đáp án C: </label>
-                <br>
-                <input id="answer3" type="radio" value="{{ item.get('answer3')?.value }}" formControlName="answer">
-                <span>{{ item.get('answer3')?.value }}</span>
-              </div>
-              <div class="col-3">
-                <label for="answer4">Đáp án D: </label>
-                <br>
-                <input id="answer4" type="radio" value="{{ item.get('answer4')?.value }}" formControlName="answer">
-                <span>{{ item.get('answer4')?.value }}</span>
+  </div>
+  <div class="row" *ngIf="message != null">
+    <div style="height: 500px"></div>
+  </div>
+  <div class="row" *ngIf="message == null">
+    <div class="col-12">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-12">
+            <h2>* Phần trắc nghiệm</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-11">
+            <div formArrayName="items">
+              <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                <div style="font-size: 18px; margin-bottom: 5px">
+                  <h3 style="margin-top: 15px">
+                    <strong><span>{{ item.get('questionNumber')?.value }}</span><span>. </span>
+                      <span>{{ item.get('content')?.value }}</span></strong></h3>
+                </div>
+                <div class="row" style="margin-bottom: 5px">
+                  <div class="col-3">
+                    <span><b>A: </b> <sub><input id="answer1" type="radio" value="{{ item.get('answer1')?.value }}"
+                                                 formControlName="answer"></sub></span>
+                    <span>&nbsp;{{ item.get('answer1')?.value }}</span>
+                  </div>
+                  <div class="col-3">
+                    <span><b>B: </b> <sub><input id="answer2" type="radio" value="{{ item.get('answer2')?.value }}"
+                                                 formControlName="answer"></sub></span>
+                    <span>&nbsp;{{ item.get('answer2')?.value }}</span>
+                  </div>
+                  <div class="col-3">
+                    <span><b>C: </b> <sub><input id="answer3" type="radio" value="{{ item.get('answer3')?.value }}"
+                                                 formControlName="answer"></sub></span>
+                    <span>&nbsp;{{ item.get('answer3')?.value }}</span>
+                  </div>
+                  <div class="col-3">
+                    <span><b>D: </b> <sub><input id="answer4" type="radio" value="{{ item.get('answer4')?.value }}"
+                                                 formControlName="answer"></sub></span>
+                    <span>&nbsp;{{ item.get('answer4')?.value }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <h2>* Phần tự luận</h2>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div formArrayName="essayQuestions">
-          <div *ngFor="let item of essayQuestions.controls; let i = index" [formGroupName]="i">
-            <div style="font-size: 18px; margin-bottom: 5px">
-              <span>{{ item.get('questionNumber')?.value }}</span><span>. </span>
-              <span>{{ item.get('content')?.value }}</span>
-            </div>
-            <div class="row" style="margin-bottom: 5px">
-              <textarea formControlName="answerEssay" placeholder="Viết câu trả lời ở đây"></textarea>
+        <div class="row">
+          <div class="col-12">
+            <h2>* Phần tự luận</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div formArrayName="essayQuestions">
+              <div *ngFor="let item of essayQuestions.controls; let i = index" [formGroupName]="i">
+                <div style="font-size: 18px; margin-bottom: 5px">
+                  <span>{{ item.get('questionNumber')?.value }}</span><span>. </span>
+                  <span>{{ item.get('content')?.value }}</span>
+                </div>
+                <div class="row" style="margin-bottom: 5px">
+                  <textarea formControlName="answerEssay" placeholder="Viết câu trả lời ở đây"></textarea>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-primary" (click)="changeToDetailLessonPage()"  type="submit">
+              Nộp bài
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-
-    <div class="row">
-      <button [routerLink]="['/detailLesson', idLesson]" type="submit" class="btn btn-primary">Nộp bài</button>
-    </div>
-  </form>
+  </div>
 </div>
-
 

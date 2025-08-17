@@ -7,6 +7,7 @@ import {TestService} from "../../service/test.service";
 import {TestDTO} from "../../model/test-dto";
 import {TopicTestService} from "../../service/topic-test.service";
 import {ReviewResultsService} from "../../service/review-results.service";
+import {ReviewResults} from "../../model/review-results";
 
 @Component({
   selector: 'app-lesson-detail',
@@ -16,12 +17,18 @@ import {ReviewResultsService} from "../../service/review-results.service";
 export class LessonDetailComponent implements OnInit {
 
   idLesson?: any
+  idUser?: any
   lesson?: Lesson
   videoUrl!: SafeResourceUrl;
   show = false;
   testDTOS?: TestDTO[]
   testDTO?: TestDTO
   open = false;
+  results?: ReviewResults
+  closeResult = false;
+  roles?: any
+  isTeacher = false;
+  isStudent = false;
 
   constructor(private lessonService: LessonService,
               private sanitizer: DomSanitizer,
@@ -29,6 +36,9 @@ export class LessonDetailComponent implements OnInit {
               private resultsService: ReviewResultsService,
               private topicTestService: TopicTestService,
               private activatedRoute: ActivatedRoute) {
+    this.idUser = localStorage.getItem("idUser")
+    this.roles = localStorage.getItem("roles")
+    this.checkTeacher()
   }
 
   ngOnInit(): void {
@@ -44,11 +54,12 @@ export class LessonDetailComponent implements OnInit {
   }
 
   scrollToBottom() {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
   }
 
   getDetailTestByUserAndLesson() {
-    this.testService.getDetailTestByUserAndLesson("1", this.idLesson).subscribe(rs => {
+    if (this.idUser == null) return;
+    this.testService.getDetailTestByUserAndLesson(this.idUser, this.idLesson).subscribe(rs => {
       this.testDTOS = rs
     })
   }
@@ -57,9 +68,27 @@ export class LessonDetailComponent implements OnInit {
     this.testDTO = testDTO
     this.getReviewResults(testDTO?.id, this.idLesson);
     this.open = true;
+    this.closeResult = false;
   }
 
   getReviewResults(idTest: any, idLesson: any) {
-    this.resultsService.getReviewResults(idTest, idLesson).subscribe()
+    this.resultsService.getReviewResults(idTest, idLesson).subscribe(rs => {
+      this.results = rs
+    })
+  }
+
+  close() {
+    this.closeResult = true;
+    this.open = false;
+  }
+
+  checkTeacher() {
+    if (this.roles != null) {
+      let role: string = JSON.stringify(this.roles);
+      let indexTeacher = role.indexOf("TEACHER");
+      this.isTeacher = indexTeacher > 0;
+      let indexStudent = role.indexOf("STUDENT");
+      this.isStudent = indexStudent > 0;
+    }
   }
 }

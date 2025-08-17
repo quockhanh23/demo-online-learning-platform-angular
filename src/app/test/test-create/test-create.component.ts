@@ -9,7 +9,8 @@ import {MultipleChoiceAnswer} from "../../model/multiple-choice-answer";
 import {EssayAnswer} from "../../model/essay-answer";
 import {EssayQuestion} from "../../model/essay-question";
 import {MultipleChoiceQuestion} from "../../model/multiple-choice-question";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {UserDTO} from "../../model/user-dto";
 
 @Component({
   selector: 'app-test-create',
@@ -18,6 +19,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class TestCreateComponent implements OnInit {
 
+  message: string | undefined
   topicTestDTO?: TopicTestDTO
   test?: Test
   idTest?: any
@@ -25,10 +27,9 @@ export class TestCreateComponent implements OnInit {
   idLesson?: any
   multipleChoiceAnswers: MultipleChoiceAnswer[] | undefined
   essayAnswers: EssayAnswer[] | undefined
-
   multipleChoiceQuestionList: MultipleChoiceQuestion[] | undefined
   essayQuestionList: EssayQuestion[] | undefined
-
+  user?: UserDTO
   myForm: FormGroup;
   display: any;
 
@@ -36,11 +37,13 @@ export class TestCreateComponent implements OnInit {
               private topicTestService: TopicTestService,
               private activatedRoute: ActivatedRoute,
               private userService: UserService,
+              private router: Router,
               private formBuilder: FormBuilder,) {
     this.myForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
       essayQuestions: this.formBuilder.array([])
     });
+    this.idUser = localStorage.getItem("idUser")
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -60,19 +63,6 @@ export class TestCreateComponent implements OnInit {
       this.idLesson = rs.get('idLesson')
     })
     this.getDetailTopicTest()
-    this.createTest()
-  }
-
-  createTest() {
-    let test = {
-      idLesson: this.idLesson
-    }
-    this.testService.createTest(test).subscribe(rs => {
-      this.test = rs
-      this.display = this.test?.time
-      this.idTest = this.test?.id
-      this.timer(this.display)
-    })
   }
 
   updateTime() {
@@ -94,27 +84,43 @@ export class TestCreateComponent implements OnInit {
   }
 
   getDetailTopicTest() {
-    // if (this.idLesson == null) return
-    this.topicTestService.getDetailTopicTestByLesson("1").subscribe(rs => {
-      this.topicTestDTO = rs
-      if (this.topicTestDTO != null) {
-        this.multipleChoiceQuestionList = this.topicTestDTO.multipleChoiceQuestionList
-        this.essayQuestionList = this.topicTestDTO.essayQuestionList
-        if (this.multipleChoiceQuestionList != null) {
-          for (let i = 0; i < this.multipleChoiceQuestionList?.length; i++) {
-            this.addItemMultipleChoiceQuestions(this.multipleChoiceQuestionList[i]);
-          }
+    if (this.idLesson == null) return
+    this.topicTestService.getDetailTopicTestByLesson(this.idLesson).subscribe(rsTopicTest => {
+      this.topicTestDTO = rsTopicTest
+      this.userService.getDetailUser(this.idUser).subscribe(rsUser => {
+        this.user = rsUser;
+        let test = {
+          idLesson: this.idLesson,
+          idStudent: this.idUser,
+          studentName: this.user?.fullName,
+          idTopicTest: this.topicTestDTO?.id
         }
-        if (this.essayQuestionList != null) {
-          for (let i = 0; i < this.essayQuestionList?.length; i++) {
-            this.addItemEssayQuestion(this.essayQuestionList[i]);
+        this.testService.createTest(test).subscribe(rsTest => {
+          this.display = this.test?.time
+          this.idTest = this.test?.id
+          this.timer(this.display)
+          if (this.topicTestDTO != null) {
+            this.multipleChoiceQuestionList = this.topicTestDTO.multipleChoiceQuestionList
+            this.essayQuestionList = this.topicTestDTO.essayQuestionList
+            if (this.multipleChoiceQuestionList != null) {
+              for (let i = 0; i < this.multipleChoiceQuestionList?.length; i++) {
+                this.addItemMultipleChoiceQuestions(this.multipleChoiceQuestionList[i], rsTest);
+              }
+            }
+            if (this.essayQuestionList != null) {
+              for (let i = 0; i < this.essayQuestionList?.length; i++) {
+                this.addItemEssayQuestion(this.essayQuestionList[i], test);
+              }
+            }
           }
-        }
-      }
+        }, error => {
+          this.message = error.error.message
+        })
+      })
     })
   }
 
-  addItemMultipleChoiceQuestions(multipleChoiceQuestion: MultipleChoiceQuestion) {
+  addItemMultipleChoiceQuestions(multipleChoiceQuestion: MultipleChoiceQuestion, test: Test) {
     const itemGroup = this.formBuilder.group({
       questionNumber: [multipleChoiceQuestion?.questionNumber, Validators.required],
       content: [multipleChoiceQuestion?.content, Validators.required],
@@ -123,16 +129,24 @@ export class TestCreateComponent implements OnInit {
       answer3: [multipleChoiceQuestion?.answer3, Validators.required],
       answer4: [multipleChoiceQuestion?.answer4, Validators.required],
       idLesson: this.idLesson,
+      idStudent: this.idUser,
+      idTest: test?.id,
+      idTopicTest: this.topicTestDTO?.id,
+      idMultipleChoiceQuestion: multipleChoiceQuestion?.id,
       answer: []
     });
     this.items.push(itemGroup);
   }
 
-  addItemEssayQuestion(essayQuestion: EssayQuestion) {
+  addItemEssayQuestion(essayQuestion: EssayQuestion, test: Test) {
     const itemGroup = this.formBuilder.group({
       questionNumber: [essayQuestion?.questionNumber, Validators.required],
       content: [essayQuestion?.content, Validators.required],
       idLesson: this.idLesson,
+      idStudent: this.idUser,
+      idTest: test?.id,
+      idTopicTest: this.topicTestDTO?.id,
+      idMultipleChoiceQuestion: essayQuestion?.id,
       answerEssay: []
     });
     this.essayQuestions.push(itemGroup);
@@ -153,6 +167,14 @@ export class TestCreateComponent implements OnInit {
     this.essayAnswers = this.myForm.value.essayQuestions
     this.createMultipleChoiceAnswer()
     this.createEssayAnswer()
+  }
+
+  changeToDetailLessonPage() {
+    setTimeout(() => {
+      this.router.navigate(['/detailLesson', this.idLesson]).then(rs => {
+        console.log("navigate: " + rs)
+      })
+    }, 2000);
   }
 
   timer(minute: number) {

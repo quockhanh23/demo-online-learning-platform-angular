@@ -10,6 +10,7 @@ export interface TestDTO {
   createdDate?: string;
   updatedDate?: string;
   idStudent?: string;
+  time?: string;
   essayAnswerList?: EssayAnswer[];
   multipleChoiceAnswerList?: MultipleChoiceAnswer[];
 }

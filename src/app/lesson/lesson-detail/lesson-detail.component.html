@@ -3,16 +3,24 @@
 <div class="container" style="background-color: whitesmoke">
    <span [routerLink]="['/detailCourse', lesson?.idCourse]" style="font-size: 35px; cursor: pointer;"
          class="material-icons hoverYellowColor">arrow_back</span>
-
+  <hr>
+  <div class="row">
+    <div class="col-12" align="center">
+      <h2 style="margin-bottom: 0px">Giới hạn số lần làm bài tập: 5 lần</h2>
+    </div>
+  </div>
   <div class="row" style="margin-top: 10px;">
     <div class="col-6">
-      <span style="font-size: 35px" matTooltip="Tạo bài kiểm tra" [routerLink]="['/topicTestCreate', idLesson]"
+      <span *ngIf="isTeacher" style="font-size: 35px" matTooltip="Tạo bài kiểm tra"
+            [routerLink]="['/topicTestCreate', idLesson]"
             class="material-icons cursorTag hoverYellowColor">add_circle</span>
-      <span style="font-size: 35px" matTooltip="Xem lại bài" class="material-icons cursorTag hoverYellowColor"
+      <span *ngIf="isStudent" style="font-size: 35px" matTooltip="Xem lại bài"
+            class="material-icons cursorTag hoverYellowColor"
             (click)="getDetailTestByUserAndLesson(); scrollToBottom()">article</span>
     </div>
     <div class="col-6" align="right">
-      <span style="font-size: 35px" matTooltip="Làm bài tập" [routerLink]="['/testCreate', idLesson]"
+      <span *ngIf="isStudent" style="font-size: 35px" matTooltip="Làm bài tập"
+            [routerLink]="['/testCreate', idLesson]"
             class="material-icons cursorTag hoverYellowColor">pending_actions</span>
     </div>
   </div>
@@ -37,7 +45,10 @@
                   <img src="favicon.ico">
                 </div>
                 <div class="col-8">
-                  <p>{{c?.testName}}</p>
+                  <p>
+                    <span>{{c?.testName}}</span>
+                    <span> Lần: {{c?.time}}</span>
+                  </p>
                 </div>
                 <div class="col-3" align="right">
                   <button class="btn btn-info" (click)="getDetailTest(c)">Xem</button>
@@ -48,12 +59,36 @@
         </div>
       </div>
     </div>
-    <div class="col-8">
-      <div *ngFor="let c of testDTO?.multipleChoiceAnswerList">
-        <p>{{c?.questionNumber}}</p>
-        <p>{{c?.answer}}</p>
+  </div>
+  <div class="row">
+    <div class="col-12">
+
+      <div class="row" *ngIf="open">
+        <div class="col">
+          <h3>Đáp án đúng: {{results?.totalCorrectAnswer}}/Tổng số: {{results?.multipleChoices?.length}}</h3>
+        </div>
+        <div class="col">
+          <div align="right">
+            <span matTooltip="Đóng" (click)="close()" class="material-icons cursorTag hoverYellowColor">close</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!closeResult">
+        <div *ngFor="let c of results?.multipleChoices">
+          <p><span>{{c?.questionNumber}}. </span><span>{{c?.question}}</span></p>
+          <div *ngIf="c?.answerOfStudent == c?.correctAnswer">
+            <p>
+              <span>{{c?.answerOfStudent}}&ensp;</span>
+              <sub><sub><span style="color: green" class="material-icons">task_alt</span></sub></sub>
+            </p>
+            <p style="background-color: #d9e7b4">Giải thích: {{c?.explainCorrectAnswer}}</p>
+          </div>
+          <p *ngIf="c?.answerOfStudent != c?.correctAnswer">
+            <span>{{c?.answerOfStudent}}&ensp;</span>
+            <sub><sub><span style="color: red" class="material-icons">highlight_off</span></sub></sub>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

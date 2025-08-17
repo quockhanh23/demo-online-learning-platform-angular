@@ -4,7 +4,6 @@ import {Course} from "../../model/course";
 import {ActivatedRoute} from "@angular/router";
 import {LessonService} from "../../service/lesson.service";
 import {Lesson} from "../../model/lesson";
-import {PageLesson} from "../../model/pageLesson";
 import {UserService} from "../../service/user.service";
 import {UserDTO} from "../../model/user-dto";
 
@@ -22,7 +21,6 @@ export class CourseDetailComponent implements OnInit {
   sizeLessons = 0
   first3Item?: Lesson[]
   items?: Lesson[]
-  pageLesson?: PageLesson
   role?: any
 
   constructor(private courseService: CourseService,
