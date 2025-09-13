@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Lesson} from "../model/lesson";
 import {PageLesson} from "../model/pageLesson";
+import {Test} from "../model/test";
 
 const API_URL = "http://localhost:8080/api/lessons"
 
@@ -40,5 +41,9 @@ export class LessonService {
         Authorization: `Bearer ${""}`,
       }
     })
+  }
+
+  highestPointLesson(idLesson: any, idUser: any): Observable<Test> {
+    return this.http.get<Test>(API_URL + `/highestPointLesson?idLesson=${idLesson}&idUser=${idUser}`,)
   }
 }

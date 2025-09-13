@@ -9,4 +9,6 @@ export interface Test {
   idStudent?: string;
   idLesson?: string;
   time?: string;
+  score?: string;
+  scoreString?: string;
 }

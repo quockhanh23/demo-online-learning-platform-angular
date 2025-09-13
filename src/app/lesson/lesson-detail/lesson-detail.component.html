@@ -17,11 +17,12 @@
       <span *ngIf="isStudent" style="font-size: 35px" matTooltip="Xem lại bài"
             class="material-icons cursorTag hoverYellowColor"
             (click)="getDetailTestByUserAndLesson(); scrollToBottom()">article</span>
-    </div>
-    <div class="col-6" align="right">
       <span *ngIf="isStudent" style="font-size: 35px" matTooltip="Làm bài tập"
             [routerLink]="['/testCreate', idLesson]"
             class="material-icons cursorTag hoverYellowColor">pending_actions</span>
+    </div>
+    <div class="col-6" align="right">
+
     </div>
   </div>
   <div class="row">
@@ -36,22 +37,26 @@
   </div>
   <div class="row">
     <div class="col-12">
+      <h2>Điểm cao nhất: {{test?.scoreString}}</h2>
       <div *ngFor="let c of testDTOS">
         <div style="margin-bottom: 5px; margin-left: 10px;">
           <div class="row">
             <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid; background-color: white">
               <div class="row">
                 <div class="col-1">
-                  <img src="favicon.ico">
+                  <img style="margin-top: 15px" src="favicon.ico">
                 </div>
                 <div class="col-8">
                   <p>
                     <span>{{c?.testName}}</span>
                     <span> Lần: {{c?.time}}</span>
                   </p>
+                  <p>
+                    <span>{{c?.scoreString}}</span>
+                  </p>
                 </div>
                 <div class="col-3" align="right">
-                  <button class="btn btn-info" (click)="getDetailTest(c)">Xem</button>
+                  <button style="margin-top: 15px" class="btn btn-info" (click)="getDetailTest(c)">Xem</button>
                 </div>
               </div>
             </div>
@@ -62,7 +67,6 @@
   </div>
   <div class="row">
     <div class="col-12">
-
       <div class="row" *ngIf="open">
         <div class="col">
           <h3>Đáp án đúng: {{results?.totalCorrectAnswer}}/Tổng số: {{results?.multipleChoices?.length}}</h3>

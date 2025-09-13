@@ -13,4 +13,6 @@ export interface TestDTO {
   time?: string;
   essayAnswerList?: EssayAnswer[];
   multipleChoiceAnswerList?: MultipleChoiceAnswer[];
+  score?: string;
+  scoreString?: string;
 }

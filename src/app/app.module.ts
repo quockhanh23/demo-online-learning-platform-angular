@@ -26,8 +26,9 @@ import {SnackbarComponent} from "./share/snackbar/snackbar.component";
 import {TitleComponent} from "./share/title/title.component";
 import {FooterComponent} from "./share/footer/footer.component";
 import {HeaderComponent} from "./share/header/header.component";
-import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+import {AdminPageComponent} from './admin/admin-page/admin-page.component';
 import {MatMenuModule} from "@angular/material/menu";
+import {SummaryComponent} from './user/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -48,21 +49,22 @@ import {MatMenuModule} from "@angular/material/menu";
     UserDetailComponent,
     SnackbarComponent,
     TitleComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    SummaryComponent
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        ToastrModule.forRoot(),
-        NgbModule,
-        MatTooltipModule,
-        MatMenuModule
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    ToastrModule.forRoot(),
+    NgbModule,
+    MatTooltipModule,
+    MatMenuModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

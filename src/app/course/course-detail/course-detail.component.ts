@@ -21,12 +21,15 @@ export class CourseDetailComponent implements OnInit {
   sizeLessons = 0
   first3Item?: Lesson[]
   items?: Lesson[]
-  role?: any
+  roles?: any
+  idUserLogin?: any
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService,
               private userService: UserService,
               private activatedRoute: ActivatedRoute,) {
+    this.idUserLogin = localStorage.getItem("idUser")
+    this.roles = localStorage.getItem("roles")
   }
 
   ngOnInit(): void {
@@ -40,15 +43,16 @@ export class CourseDetailComponent implements OnInit {
         this.userDTO = rs
       })
     })
-    this.courseService.checkRegister(this.idCourse, 1).subscribe(rs => {
+    this.courseService.checkRegister(this.idCourse, this.idUserLogin).subscribe(rs => {
       this.value = rs.value
       console.log("this.value: " + this.value)
     })
   }
 
   courseRegister() {
-    this.courseService.registerCourse(this.idCourse, 1).subscribe(() => {
-      this.courseService.checkRegister(this.idCourse, 1).subscribe(rs => {
+    if (this.idUserLogin == null) return
+    this.courseService.registerCourse(this.idCourse, this.idUserLogin).subscribe(() => {
+      this.courseService.checkRegister(this.idCourse, this.idUserLogin).subscribe(rs => {
         this.value = rs.value
       })
     })

@@ -8,6 +8,7 @@ import {TestDTO} from "../../model/test-dto";
 import {TopicTestService} from "../../service/topic-test.service";
 import {ReviewResultsService} from "../../service/review-results.service";
 import {ReviewResults} from "../../model/review-results";
+import {Test} from "../../model/test";
 
 @Component({
   selector: 'app-lesson-detail',
@@ -23,6 +24,7 @@ export class LessonDetailComponent implements OnInit {
   show = false;
   testDTOS?: TestDTO[]
   testDTO?: TestDTO
+  test?: Test
   open = false;
   results?: ReviewResults
   closeResult = false;
@@ -51,6 +53,7 @@ export class LessonDetailComponent implements OnInit {
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.lesson?.sourceUrl);
       }
     })
+    this.highestPointLesson();
   }
 
   scrollToBottom() {
@@ -90,5 +93,12 @@ export class LessonDetailComponent implements OnInit {
       let indexStudent = role.indexOf("STUDENT");
       this.isStudent = indexStudent > 0;
     }
+  }
+
+  highestPointLesson() {
+    this.lessonService.highestPointLesson(this.idLesson, this.idUser).subscribe(rs => {
+        this.test = rs;
+      }
+    )
   }
 }

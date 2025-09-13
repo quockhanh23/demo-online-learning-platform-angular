@@ -12,6 +12,7 @@ import {LoginComponent} from "./user/login/login.component";
 import {RegisterComponent} from "./admin/register/register.component";
 import {UserDetailComponent} from "./user/user-detail/user-detail.component";
 import {AdminPageComponent} from "./admin/admin-page/admin-page.component";
+import {SummaryComponent} from "./user/summary/summary.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,9 @@ const routes: Routes = [
   },
   {
     path: 'topicTestDetail/:id', component: TopicTestComponent,
+  },
+  {
+    path: 'summary', component: SummaryComponent,
   },
 ];
 
