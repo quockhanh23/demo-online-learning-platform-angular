@@ -1,0 +1,163 @@
+<app-header></app-header>
+<app-title message="Tạo bài kiểm tra"></app-title>
+<div class="container" style="background-color: whitesmoke">
+     <span [routerLink]="['/detailLesson', idLesson]" style="font-size: 35px; cursor: pointer;"
+           class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row" *ngIf="topicTestCreate == null" style="height: 500px">
+    <div class="col-3"></div>
+    <div class="col-6" style="margin-top: 20px">
+      <form [formGroup]="topicForm" (ngSubmit)="createTopicTest()">
+        <div class="row align-items-center" style="margin-top: 50px">
+          <div class="col mt-4">
+            <label style="font-size: 17px">Tên bài kiểm tra</label>
+            <input class="form-control" formControlName="testName">
+            <span style="font-size: 13px">Tối đa 60 kí tự</span>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col mt-4">
+            <label style="font-size: 17px">Thể loại</label>
+            <input style="margin-top: 20px" class="form-control" formControlName="type">
+            <span style="font-size: 13px">Tối đa 60 kí tự</span>
+          </div>
+        </div>
+        <button style="margin-top: 20px" type="submit" class="btn btn-primary">Thêm</button>
+      </form>
+    </div>
+    <div class="col-3"></div>
+    <div style="height: 350px"></div>
+  </div>
+  <div class="row" *ngIf="!submit && topicTestCreate != null">
+    <div class="col-12">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-12">
+            <p>{{topicTestCreate?.testName}}</p>
+            <p>{{topicTestCreate?.type}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3>Phần trắc nghiệm:</h3>
+            <div formArrayName="items">
+              <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                <label style="margin-top: 20px" for="name"><b>Câu hỏi số {{i + 1}}:</b></label>
+                <input class="form-control" id="name" formControlName="content">
+                <br>
+                <div class="row">
+                  <div class="col-3">
+                    <label for="value1">Đáp án A:</label>
+                    <input class="form-control" id="value1" formControlName="answer1">
+                  </div>
+                  <div class="col-3">
+                    <label for="value2">Đáp án B:</label>
+                    <input class="form-control" id="value2" formControlName="answer2">
+                  </div>
+                  <div class="col-3">
+                    <label for="value3">Đáp án C:</label>
+                    <input class="form-control" id="value3" formControlName="answer3">
+                  </div>
+                  <div class="col-3">
+                    <label for="value4">Đáp án D:</label>
+                    <input class="form-control" id="value4" formControlName="answer4">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <label for="value5">Đáp án đúng:</label>
+                    <input class="form-control" id="value5" formControlName="correctAnswer">
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+              </div>
+            </div>
+            <span matTooltip="Thêm câu hỏi trắc nghiệm" style="margin-top: 15px"
+                  class="material-icons"
+                  (click)="addItem(idTopicTest)">add_circle</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3>Phần tự luận:</h3>
+            <div formArrayName="items2">
+              <div *ngFor="let item of items2.controls; let i = index" [formGroupName]="i">
+                <textarea class="form-control" formControlName="content"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span matTooltip="Thêm câu hỏi tự luận"
+              class="material-icons" style="margin-top: 15px"
+              (click)="addItem2(idTopicTest)">add_circle</span>
+        <div class="row">
+          <div class="col-12">
+            <button style="margin-bottom: 15px" type="submit"
+                    class="btn btn-primary">Thêm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submit">
+    <div class="col-12">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-12">
+            <p>{{topicTestCreate?.testName}}</p>
+            <p>{{topicTestCreate?.type}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3>Phần trắc nghiệm:</h3>
+            <div formArrayName="items">
+              <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                <label style="margin-top: 20px" for="name"><b>Câu hỏi số {{i + 1}}:</b></label>
+                <input class="form-control" formControlName="content">
+                <br>
+                <div class="row">
+                  <div class="col-3">
+                    <label for="value1">Đáp án A:</label>
+                    <input class="form-control" formControlName="answer1">
+                  </div>
+                  <div class="col-3">
+                    <label for="value2">Đáp án B:</label>
+                    <input class="form-control" formControlName="answer2">
+                  </div>
+                  <div class="col-3">
+                    <label for="value3">Đáp án C:</label>
+                    <input class="form-control" formControlName="answer3">
+                  </div>
+                  <div class="col-3">
+                    <label for="value4">Đáp án D:</label>
+                    <input class="form-control" formControlName="answer4">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <label for="value5">Đáp án đúng:</label>
+                    <input class="form-control" formControlName="correctAnswer">
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3>Phần tự luận:</h3>
+            <div formArrayName="items2" style="margin-bottom: 20px">
+              <div *ngFor="let item of items2.controls; let i = index" [formGroupName]="i">
+                <textarea class="form-control" formControlName="content"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

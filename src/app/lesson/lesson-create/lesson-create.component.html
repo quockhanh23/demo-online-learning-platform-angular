@@ -1,39 +1,40 @@
-<div class="container">
+<app-header></app-header>
+<app-title message="Tạo bài học mới"></app-title>
+<div class="container" style="background-color: whitesmoke">
+    <span [routerLink]="['/detailCourse', idCourse]" style="font-size: 35px; cursor: pointer;"
+          class="material-icons hoverYellowColor">arrow_back</span>
   <form [formGroup]="lessonForm" (ngSubmit)="createLesson()">
-    <div style="margin-left: 10px">
-      <div class="row align-items-center">
-        <div class="col mt-4">
-          <label>Tên bài học:</label>
-          <input formControlName="title" class="form-control" placeholder="Tên bài học">
-          <span style="font-size: 13px">Tối đa 32 kí tự</span>
-        </div>
-      </div>
-      <div class="row" style="margin-top: 10px">
-        <div class="col">
-          <input (click)="toSourceUpload()" type="radio" id="html" name="fav_language" value="HTML">
-          <label for="html">Tải lên từ máy tính của bạn</label>
-          <br>
-          <input (click)="toSourceUrl()" type="radio" id="css" name="fav_language" value="CSS">
-          <label for="css">Từ đường dẫn khác</label><br>
-        </div>
-      </div>
-      <div *ngIf="sourceUpload">
-        <div class="row">
-          <div class="col">
-            <input type="file" (change)="onFileSelected($event)" accept="video/*">
-            <button (click)="uploadVideo()">Tải lên</button>
+    <div class="row" style="margin-top: 10px">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <label>Tên bài học:</label>
+        <input formControlName="lessonName" class="form-control" placeholder="Tên bài học">
+        <span style="font-size: 13px">Tối đa 32 kí tự</span>
+        <div style="margin-top: 30px">
+          <span class="material-icons">upload</span>
+          <input type="file" (change)="onFileSelected($event)">
+          <div *ngIf="!checkUploadDone" class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
           </div>
+          <iframe *ngIf="checkHaveVideo" style="width: 100%; height: 600px"
+                  [src]="video"
+                  title="Video" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
         </div>
       </div>
-      <div *ngIf="sourceUrl">
-        <div class="row" style="margin-top: 10px">
-          <div class="col">
-            <input formControlName="title" class="form-control" placeholder="Địa chỉ bài học">
-          </div>
-        </div>
-      </div>
-
-      <button style="margin-top: 10px" class="btn btn-primary" type="submit">Tạo Bài học</button>
+      <div class="col-3"></div>
     </div>
+    <div class="row" style="margin-top: 30px">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <button *ngIf="checkHaveVideo" style="margin-top: 10px" class="btn btn-primary" type="submit">Tạo Bài học
+        </button>
+        <button *ngIf="!checkHaveVideo" disabled style="margin-top: 10px" class="btn btn-primary">Tạo Bài học</button>
+      </div>
+      <div class="col-3"></div>
+    </div>
+    <div style="height: 350px"></div>
   </form>
 </div>

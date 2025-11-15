@@ -16,10 +16,6 @@ export class CourseCreateComponent implements OnInit {
     courseDescription: new FormControl(''),
     startDate: new FormControl(''),
     endDate: new FormControl(''),
-    numberOfBedrooms: new FormControl(''),
-    numberOfBathrooms: new FormControl(''),
-    acreage: new FormControl(''),
-    description: new FormControl(''),
   });
 
   constructor(private courseService: CourseService,
@@ -31,9 +27,13 @@ export class CourseCreateComponent implements OnInit {
   }
 
   createCourse() {
-    let course: Course = this.courseForm;
-    course.idUser = ""
-    this.courseService.createCourse(course).subscribe(rs => {
+    let course: Course = {
+      courseName: this.courseForm.value.courseName,
+      courseDescription: this.courseForm.value.courseDescription,
+      startDate: this.courseForm.value.startDate,
+      endDate: this.courseForm.value.endDate,
+    };
+    this.courseService.createCourse(course, 1).subscribe(rs => {
       this.router.navigate(['/']).then()
     })
   }
