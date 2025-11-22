@@ -18,15 +18,15 @@
         <div class="col-1">
           <div style="color: white; margin-top: 35px; cursor: pointer;" align="left">
             <div class="dropdown">
-              <span class="material-icons" data-toggle="dropdown">notifications_active</span>
+              <span matTooltip="Thông báo" class="material-icons" data-toggle="dropdown">notifications_active</span>
               <sup><sup><sup><span style="font-size: 10px">{{count}}</span></sup></sup></sup>
             </div>
           </div>
         </div>
         <div class="col-10">
           <div style="color: white; margin-top: 32px; cursor: pointer" [routerLink]="['/detailUser', idUser]">
-            <sub><span class="material-icons">account_box</span></sub>&nbsp;
-            <span style="font-size: 18px">{{username}}</span>
+           <span matTooltip="Thông tin cá nhân"> <sub><span class="material-icons">account_box</span></sub>&nbsp;
+            <span style="font-size: 18px">{{username}}</span></span>
           </div>
         </div>
       </div>

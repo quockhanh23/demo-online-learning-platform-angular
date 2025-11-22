@@ -6,9 +6,16 @@
   <div class="row" style="height: 500px">
     <div class="col-3" style="background-color: whitesmoke;">
       <ul style="margin-top: 20px">
-        <li *ngIf="isStudent" class="cursorTag" style="margin-top: 5px" [routerLink]="['/summary']">Điểm môn học</li>
-        <li *ngIf="isStudent" class="cursorTag" style="margin-top: 5px" [routerLink]="['/tuition']">Học phí</li>
-        <li *ngIf="isTeacher" class="cursorTag" style="margin-top: 5px" [routerLink]="['/lessonPlan']">Soạn đề</li>
+        <li *ngIf="isStudent" class="cursorTag hoverYellowColor" style="margin-top: 5px" [routerLink]="['/summary']">
+          Điểm môn học
+        </li>
+        <li *ngIf="isStudent" class="cursorTag hoverYellowColor" style="margin-top: 5px" [routerLink]="['/tuition']">
+          Học phí
+        </li>
+        <li *ngIf="isTeacher" class="cursorTag hoverYellowColor" style="margin-top: 5px" [routerLink]="['/lessonPlan']">
+          Soạn đề
+        </li>
+        <li (click)="toChangePassword()" class="cursorTag hoverYellowColor" style="margin-top: 5px">Đổi mật khẩu</li>
       </ul>
     </div>
     <div class="col-1">
@@ -21,7 +28,8 @@
     <div *ngIf="openInformation && !openChangePassword && !openUpdateUser" class="col-8"
          style="background-color: whitesmoke">
       <div style="padding-top: 15px" *ngIf="idUserLogin == idUser">
-        <span (click)="toUpdateUser()" class="material-icons hoverYellowColor cursorTag">edit</span>
+        <span matTooltip="Sửa thông tin" (click)="toUpdateUser()"
+              class="material-icons hoverYellowColor cursorTag">edit</span>
       </div>
       <hr>
 
@@ -102,62 +110,70 @@
     </div>
     <div *ngIf="!openInformation && openChangePassword && !openUpdateUser" class="col-8"
          style="background-color: whitesmoke">
-      <sub><span style="margin-top: 10px" class="material-icons">vpn_key</span></sub>
+       <span (click)="toInformation()" style="margin-top: 15px; font-size: 24px"
+             matTooltip="Đóng" class="material-icons hoverYellowColor cursorTag">highlight_off</span>
       <hr>
       <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-        <div class="row align-items-center">
-          <div class="col-4">
+        <div class="row">
+          <div class="col-5">
             <label for="1">Mật khẩu hiện tại:</label>
             <input id="1" type="password" formControlName="password" class="form-control"
                    placeholder="Mật khẩu hiện tại *">
             <span style="font-size: 13px">Tối đa 32 kí tự</span>
           </div>
         </div>
-        <div class="row align-items-center">
-          <div class="col-4">
+        <div class="row">
+          <div class="col-5">
             <label for="2">Mật khẩu mới:</label>
             <input id="2" type="password" formControlName="newPassword" class="form-control"
                    placeholder="Mật khẩu mới *">
             <span style="font-size: 13px">Tối đa 32 kí tự</span>
           </div>
         </div>
-        <div class="row align-items-center">
-          <div class="col-4">
+        <div class="row">
+          <div class="col-5">
             <label for="3">Xác nhận Mật khẩu mới:</label>
             <input id="3" type="password" formControlName="confirmNewPassword" class="form-control"
                    placeholder="Xác nhận lại Mật khẩu *">
             <span style="font-size: 13px">Tối đa 32 kí tự</span>
           </div>
         </div>
-        <button style="margin-bottom: 10px" class="btn btn-primary mt-4" type="submit">Đổi mật khẩu</button>
+        <button [disabled]="!changePasswordForm.valid" style="margin-bottom: 10px" class="btn btn-primary mt-4"
+                type="submit">Đổi mật khẩu
+        </button>
       </form>
     </div>
-
     <div *ngIf="!openInformation && !openChangePassword && openUpdateUser" class="col-8"
          style="background-color: whitesmoke;">
       <div style="padding-top: 5px;">
-        <span (click)="toInformation()" style="margin-top: 5px"
-              class="material-icons hoverYellowColor cursorTag">highlight_off</span>
+       <span (click)="toInformation()" style="margin-top: 15px; font-size: 24px"
+             matTooltip="Đóng" class="material-icons hoverYellowColor cursorTag">highlight_off</span>
       </div>
       <hr>
       <form [formGroup]="userUpdateForm" (ngSubmit)="updateUser()">
-        <div class="col mt-4">
-          <label>Tên đầy đủ:</label>
-          <input type="text" formControlName="fullName" class="form-control"
-                 placeholder="Tên đầy đủ">
-          <span style="font-size: 13px">Tối đa 32 kí tự</span>
+        <div class="row">
+          <div class="col-5">
+            <label>Tên đầy đủ:</label>
+            <input type="text" formControlName="fullName" class="form-control"
+                   placeholder="Tên đầy đủ">
+            <span style="font-size: 13px">Tối đa 32 kí tự</span>
+          </div>
         </div>
-        <div class="col mt-4">
-          <label>Email:</label>
-          <input type="text" formControlName="email" class="form-control"
-                 placeholder="Email">
-          <span style="font-size: 13px">Tối đa 32 kí tự</span>
+        <div class="row">
+          <div class="col-5">
+            <label>Email:</label>
+            <input type="text" formControlName="email" class="form-control"
+                   placeholder="Email">
+            <span style="font-size: 13px">Tối đa 32 kí tự</span>
+          </div>
         </div>
-        <div class="col mt-4">
-          <label>Số điện thoại:</label>
-          <input type="text" formControlName="phone" class="form-control"
-                 placeholder="Số điện thoại">
-          <span style="font-size: 13px">Tối đa 32 kí tự</span>
+        <div class="row">
+          <div class="col-5">
+            <label>Số điện thoại:</label>
+            <input type="text" formControlName="phone" class="form-control"
+                   placeholder="Số điện thoại">
+            <span style="font-size: 13px">Tối đa 32 kí tự</span>
+          </div>
         </div>
         <div class="col">
           <button style="margin-bottom: 10px" class="btn btn-primary mt-4" type="submit">Thay đổi</button>

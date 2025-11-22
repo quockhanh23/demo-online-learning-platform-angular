@@ -24,7 +24,7 @@ export class TuitionComponent implements OnInit {
       if (this.tuitions != null) {
         let px = 100;
         if (this.tuitions.length <= 2) {
-          let value = px + 300 * this.tuitions.length
+          let value = px + 400 * this.tuitions.length
           this.height = this.height + value + 'px'
         }
         if (this.tuitions.length <= 6 && this.tuitions.length > 2) {

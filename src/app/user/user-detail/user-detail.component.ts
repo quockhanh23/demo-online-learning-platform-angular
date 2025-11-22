@@ -76,7 +76,7 @@ export class UserDetailComponent implements OnInit {
       newPassword: this.changePasswordForm.value.newPassword,
       confirmNewPassword: this.changePasswordForm.value.confirmNewPassword
     }
-    this.userService.changePassword(request).subscribe(() => {
+    this.userService.changePassword(request, this.idUserLogin).subscribe(() => {
       this.message = "Đổi mật khẩu thành công!"
     }, error => {
       this.messageErrorChangePassword = error.error.message

@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseService} from "../../service/course.service";
 import {Router} from "@angular/router";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Course} from "../../model/course";
+import {whitespaceValidator} from "../../app.component";
 
 @Component({
   selector: 'app-course-create',
@@ -12,10 +13,10 @@ import {Course} from "../../model/course";
 export class CourseCreateComponent implements OnInit {
 
   courseForm: FormGroup = this.formBuilder.group({
-    courseName: new FormControl(''),
+    courseName: new FormControl('', [Validators.required, whitespaceValidator()]),
     courseDescription: new FormControl(''),
-    startDate: new FormControl(''),
-    endDate: new FormControl(''),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
   });
 
   constructor(private courseService: CourseService,

@@ -5,6 +5,7 @@ import {Course} from "../../model/course";
 import {LessonService} from "../../service/lesson.service";
 import {PageLesson} from "../../model/pageLesson";
 import {Lesson} from "../../model/lesson";
+import {checkRole} from "../../app.component";
 
 @Component({
   selector: 'app-course-list',
@@ -25,17 +26,22 @@ export class CourseListComponent implements OnInit {
   currentNumber?: number = 2;
   nextPageNumber?: number = 3;
   size?: number = 0;
+  roles?: any
+  role?: any
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService) {
+
+    this.roles = localStorage.getItem("roles")
   }
 
   ngOnInit(): void {
     this.getAllCourse(0, 8);
+    this.role = checkRole(this.roles)
   }
 
   scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   getAllCourse(page: any, size: any) {

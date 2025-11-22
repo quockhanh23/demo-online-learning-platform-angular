@@ -2,7 +2,7 @@
 <app-title message="Chi tiết khóa học"></app-title>
 <div class="container" style="background-color: whitesmoke">
      <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
-           class="material-icons hoverYellowColor">arrow_back</span>
+           matTooltip="Quay lại" class="material-icons hoverYellowColor">arrow_back</span>
   <div class="row" style="margin-top: 10px">
     <div class="col-6" align="left">
       <h2>Môn học: {{course?.courseName}}</h2>
@@ -12,6 +12,8 @@
       <div class="status-button" style="margin-bottom: 15px" *ngIf="course?.status == 'INACTIVE'">
         <span style="color: #327eab" class="material-icons">info_outline</span>
       </div>
+      <p>Ngày tạo: {{course?.createdDate | date: 'dd/MM/yyyy'}}</p>
+      <p>Chỉnh sửa cuối: {{course?.updatedDate | date: 'dd/MM/yyyy'}}</p>
     </div>
     <div class="col-6" align="right">
       <form>
@@ -70,7 +72,6 @@
             <div class="col-6" style="background-color: white; height: 300px;">
             </div>
             <div class="col-6">
-
             </div>
           </div>
         </div>
@@ -79,6 +80,9 @@
   </div>
   <div class="row">
     <div class="col-12">
+      <div align="center">
+        <h2 style="margin-top: 20px">Chọn bài học ở dưới để học</h2>
+      </div>
       <section class="pt-5 pb-5">
         <div class="container">
           <div class="row">
@@ -86,10 +90,11 @@
               <h3 class="mb-3">Các bài học trong khóa ({{sizeLessons}})</h3>
             </div>
             <div class="col-6 text-right">
-              <a class="mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+              <a matTooltip="Sang trái" class="mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
+                 data-slide="prev">
                 <span class="material-icons">arrow_back_ios</span>
               </a>
-              <a class="mb-3" href="#carouselExampleIndicators2" role="button" data-slide="next">
+              <a matTooltip="Sang phải" class="mb-3" href="#carouselExampleIndicators2" role="button" data-slide="next">
                 <span class="material-icons">arrow_forward_ios</span>
               </a>
             </div>
@@ -99,7 +104,7 @@
                   <div class="carousel-item active">
                     <div class="row">
                       <div class="col-md-4 mb-3" *ngFor="let item of first3Item">
-                        <div class="card">
+                        <div class="card" matTooltip="Click để xem video">
                           <span *ngIf="course?.status == 'ACTIVE'"
                                 style="color: green; margin-left: 5px; margin-top: 5px"
                                 class="material-icons">check_circle</span>

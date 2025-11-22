@@ -4,22 +4,22 @@
      <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
            class="material-icons hoverYellowColor">arrow_back</span>
   <form [formGroup]="courseForm" (ngSubmit)="createCourse()">
-    <div class="row">
-      <div class="col-12">
+    <div class="row" style="margin-top: 20px">
+      <div class="col-6">
         <label>Tên khóa học:</label>
         <input formControlName="courseName" class="form-control" placeholder="Tên khóa học">
         <span style="font-size: 11px">Tối đa 32 kí tự</span>
-      </div>
-    </div>
-    <div class="row" style="margin-top: 10px">
-      <div class="col-12">
+        <br>
         <label>Mô tả khóa học:</label>
         <textarea formControlName="courseDescription" class="form-control" placeholder="Mô tả"></textarea>
         <span style="font-size: 11px">Tối đa 32 kí tự</span>
       </div>
+      <div class="col-6">
+        <img style="width: 100%; border-radius: 5px" src="../../../assets/image/harvard-university.png">
+      </div>
     </div>
     <div class="row" style="margin-top: 10px">
-      <div class="col-6">
+      <div class="col-3">
         <div style="font-size: 19px">
           <div>
             <p>Ngày bắt đầu khóa học:</p>
@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-3">
         <div style="font-size: 19px">
           <div>
             <p>Ngày kết thúc khóa học:</p>
@@ -35,10 +35,11 @@
           </div>
         </div>
       </div>
+      <div class="col-6"></div>
     </div>
     <div class="row" style="margin-top: 20px">
       <div class="col-12">
-        <button style="margin-top: 10px; margin-bottom: 10px" class="btn btn-primary" type="submit">Tạo khóa học
+        <button [disabled]="!courseForm.valid" style="margin-top: 10px; margin-bottom: 10px" class="btn btn-primary" type="submit">Tạo khóa học
         </button>
         <div style="height: 100px"></div>
       </div>

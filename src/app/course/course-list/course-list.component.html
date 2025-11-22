@@ -12,7 +12,9 @@
       <form>
         <div class="row">
           <div class="col-1">
-            <span [routerLink]="['/createCourse']" style="font-size: 40px; color: #327eab"
+            <span matTooltip="Thêm mới khóa học" *ngIf="role == 'TEACHER' || role == 'ADMIN'"
+                  [routerLink]="['/createCourse']"
+                  style="font-size: 40px; color: #327eab"
                   class="material-icons cursorTag">add_circle</span>
           </div>
           <div class="col-9">
