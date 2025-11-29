@@ -3,7 +3,6 @@ import {CourseService} from "../../service/course.service";
 import {PageCourse} from "../../model/pageCourse";
 import {Course} from "../../model/course";
 import {LessonService} from "../../service/lesson.service";
-import {PageLesson} from "../../model/pageLesson";
 import {Lesson} from "../../model/lesson";
 import {checkRole} from "../../app.component";
 

@@ -29,11 +29,11 @@ import {HeaderComponent} from "./share/header/header.component";
 import {AdminPageComponent} from './admin/admin-page/admin-page.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {SummaryComponent} from './user/summary/summary.component';
-import { TuitionComponent } from './user/tuition/tuition.component';
-import { SendBillComponent } from './admin/send-bill/send-bill.component';
-import { LessonPlanComponent } from './user/lesson-plan/lesson-plan.component';
-import { LessonUpdateComponent } from './lesson/lesson-update/lesson-update.component';
-import { CourseUpdateComponent } from './course/course-update/course-update.component';
+import {TuitionComponent} from './user/tuition/tuition.component';
+import {SendBillComponent} from './admin/send-bill/send-bill.component';
+import {LessonPlanComponent} from './user/lesson-plan/lesson-plan.component';
+import {LessonUpdateComponent} from './lesson/lesson-update/lesson-update.component';
+import {CourseUpdateComponent} from './course/course-update/course-update.component';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Lesson} from "../model/lesson";
 import {ReviewResults} from "../model/review-results";
 
 const API_URL = "http://localhost:8080/api/reviewResults"
