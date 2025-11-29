@@ -14,6 +14,33 @@
       </div>
       <p>Ngày tạo: {{course?.createdDate | date: 'dd/MM/yyyy'}}</p>
       <p>Chỉnh sửa cuối: {{course?.updatedDate | date: 'dd/MM/yyyy'}}</p>
+      <div style="margin-top: 10px">
+        <div *ngIf="review == null" class="rating">
+          <input type="radio" name="rating" value="5" id="5" (click)="getStarValue(5)">
+          <label for="5">☆</label>
+          <input type="radio" name="rating" value="4" id="4" (click)="getStarValue(4)"><label
+          for="4">☆</label>
+          <input type="radio" name="rating" value="3" id="3" (click)="getStarValue(3)"><label
+          for="3">☆</label>
+          <input type="radio" name="rating" value="2" id="2" (click)="getStarValue(2)"><label
+          for="2">☆</label>
+          <input type="radio" name="rating" value="1" id="1" (click)="getStarValue(1)"><label
+          for="1">☆</label>
+        </div>
+        <div class="rating" *ngIf="review != null" style="pointer-events: none;">
+          <input type="radio" name="rating" value="5" [checked]="(course?.rate ?? 0) >= 5">
+          <label for="5">☆</label>
+          <input type="radio" name="rating" value="4" [checked]="(course?.rate ?? 0) >= 4 && (course?.rate ?? 0) < 5">
+          <label for="4">☆</label>
+          <input type="radio" name="rating" value="3" [checked]="(course?.rate ?? 0) >= 3 && (course?.rate ?? 0) < 4">
+          <label for="3">☆</label>
+          <input type="radio" name="rating" value="2" [checked]="(course?.rate ?? 0) >= 2 && (course?.rate ?? 0) < 3">
+          <label for="2">☆</label>
+          <input type="radio" name="rating" value="1" [checked]="(course?.rate ?? 0) >= 1 && (course?.rate ?? 0) < 2">
+          <label for="1">☆</label>
+        </div>
+        <span>{{course?.rate}}</span>
+      </div>
     </div>
     <div class="col-6" align="right">
       <form>
@@ -125,11 +152,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item" *ngFor="let group of chunks">
                     <div class="row">
-                      <div class="col-md-4 mb-3" *ngFor="let item of items">
+                      <div class="col-md-4 mb-3" *ngFor="let item of group">
                         <div class="card">
-                          <p>{{item?.status}}</p>
+                          <span *ngIf="course?.status == 'ACTIVE'"
+                              style="color: green; margin-left: 5px; margin-top: 5px"
+                              class="material-icons">check_circle</span>
+                          <span *ngIf="course?.status == 'INACTIVE'"
+                                style="color: #327eab;  margin-left: 5px; margin-top: 5px"
+                                class="material-icons">info_outline</span>
                           <img *ngIf="value == '1'" class="img-fluid cursorTag" style="width: 100%; height: 150px"
                                [routerLink]="['/detailLesson', item?.id]"
                                alt="100%x280" src="{{item?.image}}">

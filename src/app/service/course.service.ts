@@ -49,8 +49,4 @@ export class CourseService {
   getAllRegisterCourse(idUserRegister: string): Observable<Course[]> {
     return this.http.get<Course[]>(API_URL + `/getAllRegisterCourse?idUserRegister=${idUserRegister}`)
   }
-
-  getAllInformation(idUser: string, idLesson: string): Observable<Course[]> {
-    return this.http.get<Course[]>(API_URL + `/getAllInformation?idUser=${idUser}&idLesson=${idLesson}`)
-  }
 }

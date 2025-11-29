@@ -6,6 +6,8 @@ import {LessonService} from "../../service/lesson.service";
 import {Lesson} from "../../model/lesson";
 import {UserService} from "../../service/user.service";
 import {UserDTO} from "../../model/user-dto";
+import {ReviewService} from "../../service/review.service";
+import {Review} from "../../model/review";
 
 @Component({
   selector: 'app-course-detail',
@@ -15,6 +17,7 @@ import {UserDTO} from "../../model/user-dto";
 export class CourseDetailComponent implements OnInit {
 
   course?: Course
+  review?: Review
   userDTO?: UserDTO
   idCourse?: any
   value?: any
@@ -25,9 +28,12 @@ export class CourseDetailComponent implements OnInit {
   idUserLogin?: any
   isTeacher = false;
   isStudent = false;
+  selected: any = -1
+  chunks: any[] = [];
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService,
+              private reviewService: ReviewService,
               private userService: UserService,
               private activatedRoute: ActivatedRoute,) {
     this.idUserLogin = localStorage.getItem("idUser")
@@ -48,8 +54,38 @@ export class CourseDetailComponent implements OnInit {
     })
     this.courseService.checkRegister(this.idCourse, this.idUserLogin).subscribe(rs => {
       this.value = rs.value
-      console.log("this.value: " + this.value)
+      console.log("checkRegister: " + this.value)
     })
+    this.reviewService.getDetailReview(this.idCourse, this.idUserLogin).subscribe(rs => {
+      this.review = rs
+    })
+  }
+
+  getStarValue(value: any) {
+    this.selected = value;
+    console.log("selected: " + value)
+    this.getDetailReview(value);
+  }
+
+  getDetailReview(value: any) {
+    this.reviewService.getDetailReview(this.idCourse, this.idUserLogin).subscribe(rs => {
+      this.review = rs
+      if (this.review == null) {
+        this.createReview(value)
+      }
+    })
+  }
+
+  createReview(selected: number) {
+    if (selected != -1) {
+      let review = {
+        starLevel: this.selected,
+        idCourse: this.idCourse,
+        idUserAction: this.idUserLogin
+      }
+      this.reviewService.createReview(review).subscribe(() => {
+      })
+    }
   }
 
   checkTeacher() {
@@ -72,19 +108,24 @@ export class CourseDetailComponent implements OnInit {
   }
 
   getAllLessonByCourse(page: any, size: any, idCourse: any) {
-    let searchLesson = (document.getElementById("searchLesson") as HTMLSelectElement).value
-    this.first3Item = []
-    this.items = []
+    const searchLesson = (document.getElementById("searchLesson") as HTMLSelectElement).value;
+
+    this.first3Item = [];
+    this.chunks = [];
+
     this.lessonService.getAllLessonByCourseList(idCourse, searchLesson).subscribe(rs => {
-      this.sizeLessons = rs?.length
-      if (this.sizeLessons >= 3) {
+      this.sizeLessons = rs?.length;
+      if (rs.length >= 3) {
         this.first3Item = [rs[0], rs[1], rs[2]];
       } else {
-        this.first3Item = rs
+        this.first3Item = rs;
+        return;
       }
-      if (this.sizeLessons >= 4) {
-        this.items = rs.slice(3);
+      const remain = rs.slice(3);
+      for (let i = 0; i < remain.length; i += 3) {
+        this.chunks.push(remain.slice(i, i + 3));
       }
-    })
+    });
   }
+
 }

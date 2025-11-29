@@ -9,4 +9,5 @@ export interface Course {
   idUser?: string;
   status?: string;
   logo?: string;
+  rate?: string;
 }
