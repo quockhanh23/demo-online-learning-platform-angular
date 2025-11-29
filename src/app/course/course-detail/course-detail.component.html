@@ -13,7 +13,8 @@
         <span style="color: #327eab" class="material-icons">info_outline</span>
       </div>
       <p>Ngày tạo: {{course?.createdDate | date: 'dd/MM/yyyy'}}</p>
-      <p>Chỉnh sửa cuối: {{course?.updatedDate | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="course?.updatedDate != null">Chỉnh sửa cuối: {{course?.updatedDate | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="course?.updatedDate == null">Chỉnh sửa cuối: {{course?.createdDate | date: 'dd/MM/yyyy'}}</p>
       <div style="margin-top: 10px">
         <div *ngIf="review == null" class="rating">
           <input type="radio" name="rating" value="5" id="5" (click)="getStarValue(5)">

@@ -23,7 +23,6 @@ export class CourseDetailComponent implements OnInit {
   value?: any
   sizeLessons = 0
   first3Item?: Lesson[]
-  items?: Lesson[]
   roles?: any
   idUserLogin?: any
   isTeacher = false;
@@ -54,7 +53,6 @@ export class CourseDetailComponent implements OnInit {
     })
     this.courseService.checkRegister(this.idCourse, this.idUserLogin).subscribe(rs => {
       this.value = rs.value
-      console.log("checkRegister: " + this.value)
     })
     this.reviewService.getDetailReview(this.idCourse, this.idUserLogin).subscribe(rs => {
       this.review = rs
@@ -127,5 +125,4 @@ export class CourseDetailComponent implements OnInit {
       }
     });
   }
-
 }

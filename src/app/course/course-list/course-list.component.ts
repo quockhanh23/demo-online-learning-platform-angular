@@ -15,11 +15,9 @@ import {checkRole} from "../../app.component";
 export class CourseListComponent implements OnInit {
 
   pageCourse?: PageCourse
-  pageLesson?: PageLesson
   course?: Course
   sizeLessons = 0
   first3Item?: Lesson[]
-  items?: Lesson[]
   currentPage?: number = 0;
   currentPageAddOne?: number = 1;
   previousPageNumber?: number = 1;
@@ -28,6 +26,7 @@ export class CourseListComponent implements OnInit {
   size?: number = 0;
   roles?: any
   role?: any
+  chunks: any[] = [];
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService) {
@@ -62,19 +61,19 @@ export class CourseListComponent implements OnInit {
 
   getAllLessonByCourse(page: any, size: any, idCourse: any, searchText: string) {
     this.first3Item = []
-    this.items = []
-    this.lessonService.getAllLessonByCourse(page, size, idCourse, searchText).subscribe(rs => {
-      this.pageLesson = rs
-      if (this.pageLesson?.content != null) {
-        this.sizeLessons = this.pageLesson?.content?.length
-        if (this.sizeLessons >= 3) {
-          this.first3Item = [this.pageLesson?.content[0], this.pageLesson?.content[1], this.pageLesson?.content[2]];
-        }
-        if (this.sizeLessons >= 4) {
-          this.items = this.pageLesson?.content?.slice(3);
-        }
+    this.lessonService.getAllLessonByCourseList(idCourse, searchText).subscribe(rs => {
+      this.sizeLessons = rs?.length;
+      if (rs.length >= 3) {
+        this.first3Item = [rs[0], rs[1], rs[2]];
+      } else {
+        this.first3Item = rs;
+        return;
       }
-    })
+      const remain = rs.slice(3);
+      for (let i = 0; i < remain.length; i += 3) {
+        this.chunks.push(remain.slice(i, i + 3));
+      }
+    });
   }
 
   previousPage() {
