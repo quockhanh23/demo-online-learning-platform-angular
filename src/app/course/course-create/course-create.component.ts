@@ -12,6 +12,8 @@ import {whitespaceValidator} from "../../app.component";
 })
 export class CourseCreateComponent implements OnInit {
 
+  idUserLogin?: any
+
   courseForm: FormGroup = this.formBuilder.group({
     courseName: new FormControl('', [Validators.required, whitespaceValidator()]),
     courseDescription: new FormControl(''),
@@ -22,19 +24,23 @@ export class CourseCreateComponent implements OnInit {
   constructor(private courseService: CourseService,
               private formBuilder: FormBuilder,
               private router: Router) {
+    this.idUserLogin = localStorage.getItem("idUser")
   }
 
   ngOnInit(): void {
   }
 
   createCourse() {
+    if (this.idUserLogin == null) {
+      return
+    }
     let course: Course = {
       courseName: this.courseForm.value.courseName,
       courseDescription: this.courseForm.value.courseDescription,
       startDate: this.courseForm.value.startDate,
       endDate: this.courseForm.value.endDate,
     };
-    this.courseService.createCourse(course, 1).subscribe(rs => {
+    this.courseService.createCourse(course, this.idUserLogin).subscribe(() => {
       this.router.navigate(['/']).then()
     })
   }
