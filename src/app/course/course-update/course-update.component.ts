@@ -3,7 +3,7 @@ import {Course} from "../../model/course";
 import {Lesson} from "../../model/lesson";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {CourseService} from "../../service/course.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-course-update',
@@ -28,8 +28,7 @@ export class CourseUpdateComponent implements OnInit {
 
   constructor(private courseService: CourseService,
               private formBuilder: FormBuilder,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private activatedRoute: ActivatedRoute) {
     this.idUserLogin = localStorage.getItem("idUser")
   }
 
@@ -58,5 +57,4 @@ export class CourseUpdateComponent implements OnInit {
       this.course = rs
     })
   }
-
 }

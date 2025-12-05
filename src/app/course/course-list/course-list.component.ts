@@ -29,7 +29,6 @@ export class CourseListComponent implements OnInit {
 
   constructor(private courseService: CourseService,
               private lessonService: LessonService) {
-
     this.roles = localStorage.getItem("roles")
   }
 

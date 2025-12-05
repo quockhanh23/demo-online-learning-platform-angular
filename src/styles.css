@@ -62,3 +62,10 @@ body {
 .mat-tooltip {
   font-size: 16px !important;
 }
+
+.ellipsis {
+  white-space: nowrap;       /* không xuống dòng */
+  overflow: hidden;          /* ẩn phần tràn */
+  text-overflow: ellipsis;   /* hiện dấu ... */
+  max-width: 200px;          /* hoặc width cố định */
+}

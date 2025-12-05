@@ -12,7 +12,7 @@ export class TuitionComponent implements OnInit {
   title = "Hóa đơn học phí"
   tuitions?: Tuition[]
   idUserLogin?: any
-  height = "height: "
+  height = "height: 500px"
 
   constructor(private tuitionService: TuitionService) {
     this.idUserLogin = localStorage.getItem("idUser")

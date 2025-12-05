@@ -33,7 +33,7 @@
   <hr>
   <div class="row">
     <div class="col-4" style="margin-top: 10px">
-      <div *ngFor="let c of pageCourse?.content">
+      <div *ngFor="let c of pageCourse?.content; let i = index">
         <div style="margin-bottom: 5px; margin-left: 10px;">
           <div class="row">
             <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid; background-color: white">
@@ -53,18 +53,30 @@
                           (click)="getDetailCourse(c?.id); scrollToTop();">Xem
                   </button>
                 </div>
-                <div class="col-7">
-                  <div class="rating" style="margin-top: 25px; pointer-events: none;">
-                    <input type="radio" name="rating" value="5" id="5">
-                    <label for="5">☆</label>
-                    <input type="radio" name="rating" value="4" id="4"><label
-                    for="4">☆</label>
-                    <input type="radio" name="rating" value="3" id="3"><label
-                    for="3">☆</label>
-                    <input type="radio" name="rating" value="2" id="2"><label
-                    for="2">☆</label>
-                    <input type="radio" name="rating" value="1" id="1"><label
-                    for="1">☆</label>
+                <div class="col-1" style="margin-top: 25px">
+                  <span>{{c?.rate}}</span>
+                </div>
+                <div class="col-6" style="margin-top: 25px">
+                  <div class="rating" style="pointer-events: none;">
+                    <input type="radio" [name]="'rating-' + i" value="5" [id]="'5-' + i"
+                           [checked]="(c?.rate ?? 0) >= 5">
+                    <label [for]="'5-' + i">☆</label>
+
+                    <input type="radio" [name]="'rating-' + i" value="4" [id]="'4-' + i"
+                           [checked]="(c?.rate ?? 0) >= 4 && (c?.rate ?? 0) < 5">
+                    <label [for]="'4-' + i">☆</label>
+
+                    <input type="radio" [name]="'rating-' + i" value="3" [id]="'3-' + i"
+                           [checked]="(c?.rate ?? 0) >= 3 && (c?.rate ?? 0) < 4">
+                    <label [for]="'3-' + i">☆</label>
+
+                    <input type="radio" [name]="'rating-' + i" value="2" [id]="'2-' + i"
+                           [checked]="(c?.rate ?? 0) >= 2 && (c?.rate ?? 0) < 3">
+                    <label [for]="'2-' + i">☆</label>
+
+                    <input type="radio" [name]="'rating-' + i" value="1" [id]="'1-' + i"
+                           [checked]="(c?.rate ?? 0) >= 1 && (c?.rate ?? 0) < 2">
+                    <label [for]="'1-' + i">☆</label>
                   </div>
                 </div>
               </div>
@@ -129,7 +141,12 @@
                         <div class="row">
                           <div class="col-md-4 mb-3" *ngFor="let item of first3Item">
                             <div class="card">
-                              <p>{{item?.status}}</p>
+                              <span *ngIf="course?.status == 'ACTIVE'"
+                                    style="color: green; margin-left: 5px; margin-top: 5px"
+                                    class="material-icons">check_circle</span>
+                              <span *ngIf="course?.status == 'INACTIVE'"
+                                    style="color: #327eab;  margin-left: 5px; margin-top: 5px"
+                                    class="material-icons">info_outline</span>
                               <img class="img-fluid" style="width: 100%; height: 150px"
                                    alt="100%x280" src="{{item?.image}}">
                               <div class="card-body">
@@ -145,7 +162,12 @@
                         <div class="row">
                           <div class="col-md-4 mb-3" *ngFor="let item of group">
                             <div class="card">
-                              <p>{{item?.status}}</p>
+                              <span *ngIf="course?.status == 'ACTIVE'"
+                                    style="color: green; margin-left: 5px; margin-top: 5px"
+                                    class="material-icons">check_circle</span>
+                              <span *ngIf="course?.status == 'INACTIVE'"
+                                    style="color: #327eab;  margin-left: 5px; margin-top: 5px"
+                                    class="material-icons">info_outline</span>
                               <img class="img-fluid" style="width: 100%; height: 150px"
                                    alt="100%x280" src="{{item?.image}}">
                               <div class="card-body">
