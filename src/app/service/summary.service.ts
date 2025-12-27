@@ -20,7 +20,8 @@ export class SummaryService {
   }
 
   checkCompleteLesson(idUserLogin: any, idLesson: any): Observable<LessonCompletion> {
-    return this.http.get<LessonCompletion>(API_URL + `/checkCompleteLesson?idUserLogin=${idUserLogin}&idLesson=${idLesson}`,)
+    return this.http.get<LessonCompletion>(API_URL +
+      `/checkCompleteLesson?idUserLogin=${idUserLogin}&idLesson=${idLesson}`,)
   }
 
   checkCompleteCourse(idUserLogin: any): Observable<CompleteCourse[]> {

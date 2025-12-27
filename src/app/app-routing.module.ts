@@ -1,25 +1,25 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TopicTestCreateComponent} from "./component/topic-test/topic-test-create/topic-test-create.component";
-import {TestCreateComponent} from "./component/test/test-create/test-create.component";
-import {LessonDetailComponent} from "./component/lesson/lesson-detail/lesson-detail.component";
-import {CourseDetailComponent} from "./component/course/course-detail/course-detail.component";
-import {CourseListComponent} from "./component/course/course-list/course-list.component";
-import {TopicTestComponent} from "./component/topic-test/topic-test/topic-test.component";
-import {CourseCreateComponent} from "./component/course/course-create/course-create.component";
-import {LessonCreateComponent} from "./component/lesson/lesson-create/lesson-create.component";
-import {LoginComponent} from "./component/user/login/login.component";
-import {RegisterComponent} from "./component/admin/register/register.component";
-import {UserDetailComponent} from "./component/user/user-detail/user-detail.component";
-import {AdminPageComponent} from "./component/admin/admin-page/admin-page.component";
-import {SummaryComponent} from "./component/user/summary/summary.component";
-import {TuitionComponent} from "./component/user/tuition/tuition.component";
-import {SendBillComponent} from "./component/admin/send-bill/send-bill.component";
-import {LessonPlanComponent} from "./component/user/lesson-plan/lesson-plan.component";
-import {LessonUpdateComponent} from "./component/lesson/lesson-update/lesson-update.component";
-import {CourseUpdateComponent} from "./component/course/course-update/course-update.component";
-import {DepartmentCreateComponent} from "./component/admin/department-create/department-create.component";
-import {DepartmentPageComponent} from "./component/admin/department-page/department-page.component";
+import {TopicTestCreateComponent} from "./topic-test/topic-test-create/topic-test-create.component";
+import {TestCreateComponent} from "./test/test-create/test-create.component";
+import {LessonDetailComponent} from "./lesson/lesson-detail/lesson-detail.component";
+import {CourseDetailComponent} from "./course/course-detail/course-detail.component";
+import {CourseListComponent} from "./course/course-list/course-list.component";
+import {TopicTestComponent} from "./topic-test/topic-test/topic-test.component";
+import {CourseCreateComponent} from "./course/course-create/course-create.component";
+import {LessonCreateComponent} from "./lesson/lesson-create/lesson-create.component";
+import {LoginComponent} from "./user/login/login.component";
+import {RegisterComponent} from "./admin/register/register.component";
+import {UserDetailComponent} from "./user/user-detail/user-detail.component";
+import {AdminPageComponent} from "./admin/admin-page/admin-page.component";
+import {SummaryComponent} from "./user/summary/summary.component";
+import {TuitionComponent} from "./user/tuition/tuition.component";
+import {SendBillComponent} from "./admin/send-bill/send-bill.component";
+import {LessonPlanComponent} from "./user/lesson-plan/lesson-plan.component";
+import {LessonUpdateComponent} from "./lesson/lesson-update/lesson-update.component";
+import {CourseUpdateComponent} from "./course/course-update/course-update.component";
+import {DepartmentCreateComponent} from "./admin/department-create/department-create.component";
+import {DepartmentPageComponent} from "./admin/department-page/department-page.component";
 
 const routes: Routes = [
   {

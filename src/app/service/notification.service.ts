@@ -14,7 +14,8 @@ export class NotificationService {
   }
 
   getAllNotificationPage(idUserReceiver: any, page: any, size: any): Observable<PageNotification> {
-    return this.http.get<PageNotification>(API_URL + `/getAllNotificationPage?idUserReceiver=${idUserReceiver}&page=${page}&size=${size}`)
+    return this.http.get<PageNotification>(API_URL +
+      `/getAllNotificationPage?idUserReceiver=${idUserReceiver}&page=${page}&size=${size}`)
   }
 
   updateNotification(idNotification: any): Observable<any> {
