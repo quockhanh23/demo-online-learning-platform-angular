@@ -2,15 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Mater</title>
+  <title>Học trực tuyến</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!--  <script>-->
+<!--    window.addEventListener('beforeunload', function (event) {-->
+<!--      // Gửi request về server (ví dụ: đánh dấu user offline)-->
+<!--      const data = JSON.stringify({-->
+<!--        userId: 123,-->
+<!--        action: 'browser_closed'-->
+<!--      });-->
+
+<!--      navigator.sendBeacon('/api/user-offline', data);-->
+
+<!--      // Nếu bạn muốn hiển thị cảnh báo (optional)-->
+<!--      event.preventDefault(); // Một số trình duyệt yêu cầu dòng này-->
+<!--      event.returnValue = 'Bạn có chắc chắn muốn rời khỏi trang này?';-->
+<!--      return 'Bạn có chắc chắn muốn rời khỏi trang này?';-->
+<!--    });-->
+<!--  </script>-->
+
 </head>
 <body class="mat-typography">
-  <app-root></app-root>
+<app-root></app-root>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<app-header></app-header>
+<app-title [message]="title"></app-title>
+<div class="container" style="background-color: #e2eaef">
+  <span [routerLink]="['/detailUser', idUserLogin]" style="font-size: 35px; cursor: pointer;"
+        class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row" style="{{height}}">
+    <div class="col-12" style="{{height}}">
+      <hr>
+      <h2 align="center">Danh sách hóa đơn</h2>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên hóa đơn</th>
+          <th scope="col">Ngày nộp tiền</th>
+          <th scope="col">Số tiền (VNĐ)</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let s of tuitions index as i">
+          <td>{{i + 1}}</td>
+          <td>{{s?.title}}</td>
+          <td>{{s?.description}}</td>
+          <td>{{s?.money}} VNĐ</td>
+          <td style="color: #0ba10b" *ngIf="s?.status == 'COMPLETE'">Đã nộp</td>
+          <td style="color: #f44336" *ngIf="s?.status == 'PROCESS'">Chưa nộp</td>
+          <td *ngIf="s?.status == 'PROCESS'">
+            <a style="color: #327eab" class="cursorTag">Nộp ngay</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

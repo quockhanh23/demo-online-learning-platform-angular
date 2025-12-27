@@ -1,0 +1,131 @@
+<app-header></app-header>
+<app-title message="Quản lý chung"></app-title>
+<div class="container" style="background-color: whitesmoke">
+     <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+           class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row">
+    <div class="col-7">
+      <button style="margin-top: 10px; margin-left: 10px" class="btn btn-info" [routerLink]="['/register']">Thêm người
+        dùng
+      </button>
+      <button style="margin-top: 10px; margin-left: 10px" class="btn btn-info" [routerLink]="['/bill']">
+        Gửi hóa đơn
+      </button>
+      <button style="margin-top: 10px; margin-left: 10px" class="btn btn-info" [routerLink]="['/departmentPage']">
+        Quản lý bộ môn
+      </button>
+    </div>
+    <div class="col-5" style="margin-top: 10px;" align="right">
+      <form class="form-inline">
+        <button mat-icon-button [matMenuTriggerFor]="menu1" matTooltip="Phân loại" style="margin-right: 10px">
+          <mat-icon style="font-size: 35px; color: #554c86">view_headline</mat-icon>
+          <mat-menu #menu1="matMenu">
+            <button mat-menu-item (click)="changeToGetAllUser()">
+              <mat-icon>school</mat-icon>
+              <span>Tất cả</span>
+            </button>
+            <button mat-menu-item (click)="getAllUserByRole('STUDENT')">
+              <mat-icon>school</mat-icon>
+              <span>Vai trò học sinh</span>
+            </button>
+            <button mat-menu-item (click)="getAllUserByRole('TEACHER')">
+              <mat-icon>local_library</mat-icon>
+              <span>Vai trò giáo viên</span>
+            </button>
+          </mat-menu>
+        </button>
+
+        <input id="search" style="width: 75%" class="form-control mr-sm-2" type="search"
+               placeholder="Tìm kiếm theo tên đăng nhập, tên đầy đủ"
+               aria-label="Search">
+        <button (click)="changeToGetAllUser()" class="btn btn-info" type="submit" style="height: 40px">
+          <span class="material-icons">search</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 50px">
+    <div class="col-11" style="background-color: white; margin-left: 30px">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Ngày đăng ký</th>
+          <th scope="col">Tên đăng nhập</th>
+          <th scope="col">Tên đầy đủ</th>
+          <th scope="col">Địa chỉ email</th>
+          <th scope="col">Vai trò</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of userDTOs">
+          <td>{{user?.createdDate | date: 'dd/MM/yyyy'}}</td>
+          <td>{{user?.username}}</td>
+          <td>{{user?.fullName}}</td>
+          <td>{{user?.email}}</td>
+          <td style="color: #327eab" *ngIf="user?.roles?.[0]?.roleName == 'STUDENT'">{{user?.roles?.[0]?.roleName}}</td>
+          <td style="color: darkblue"
+              *ngIf="user?.roles?.[0]?.roleName == 'TEACHER'">{{user?.roles?.[0]?.roleName}}</td>
+
+          <td style="color: #0ba10b" *ngIf="user?.status == 'ACTIVE'">{{user?.status}}</td>
+          <td style="color: #ffc107" *ngIf="user?.status == 'INACTIVE'">{{user?.status}}</td>
+          <td style="color: red" *ngIf="user?.status == 'BANED'">{{user?.status}}</td>
+          <td>
+            <sup><sup>
+              <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Xem các hành động">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </sup></sup>
+          </td>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/detailUser', user?.id]">
+              <mat-icon>visibility</mat-icon>
+              <span>Xem thông tin</span>
+            </button>
+            <button mat-menu-item (click)="action(user?.id, 'ACTIVE')">
+              <mat-icon>verified</mat-icon>
+              <span>Kích hoạt người dùng</span>
+            </button>
+            <button mat-menu-item (click)="action(user?.id, 'INACTIVE')">
+              <mat-icon>lock_clock</mat-icon>
+              <span>Khóa người dùng</span>
+            </button>
+            <button mat-menu-item (click)="action(user?.id, 'BANED')">
+              <mat-icon>do_not_disturb_on_total_silence</mat-icon>
+              <span>Cấm người dùng</span>
+            </button>
+          </mat-menu>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="{{height}}"></div>
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <div class="col-3" align="left">
+      <p style="margin-top: 5px; font-size: 17px">Trang: {{currentPageAddOne}}/{{pageUser?.content?.length}} | Tổng
+        số: {{pageUser?.page?.totalElements}}</p>
+    </div>
+    <div class="col-1" align="left">
+      <div>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="Second group">
+            <button matTooltip="Trang trước" type="button" class="btn btn-link" (click)="previousPage()">
+              <span style="font-size: 15px"
+                    class="material-icons hoverYellowColor cursorTag">arrow_back_ios</span>
+            </button>
+            <button matTooltip="Trang tiếp theo" type="button" class="btn btn-link" (click)="nextPage()">
+            <span style="font-size: 15px"
+                  class="material-icons hoverYellowColor cursorTag">arrow_forward_ios</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4"></div>
+  </div>
+</div>
+
+

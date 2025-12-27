@@ -1,0 +1,109 @@
+<app-header></app-header>
+<app-title message="Bài học số {{lesson?.lessonNumber}}: {{lesson?.lessonName}}"></app-title>
+<div class="container" style="background-color: whitesmoke">
+   <span [routerLink]="['/detailCourse', lesson?.idCourse]" style="font-size: 35px; cursor: pointer;"
+         matTooltip="Quay lại" class="material-icons hoverYellowColor">arrow_back</span>
+  <hr>
+  <span *ngIf="lessonCompletion?.status == 'STUDYING'" class="material-icons hoverYellowColor">hourglass_top</span>
+  <div class="row">
+    <div class="col-12" align="center">
+      <h2 style="margin-bottom: 0px">Giới hạn số lần làm bài tập: 5 lần</h2>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-6">
+      <span *ngIf="isTeacher" style="font-size: 35px" matTooltip="Tạo bài kiểm tra"
+            [routerLink]="['/topicTestCreate', idLesson]"
+            class="material-icons cursorTag hoverYellowColor">add_circle</span>
+      <span *ngIf="isStudent" style="font-size: 35px" matTooltip="Xem lại bài"
+            class="material-icons cursorTag hoverYellowColor"
+            (click)="getDetailTestByUserAndLesson(); scrollToBottom()">article</span>
+      <span *ngIf="isStudent" style="font-size: 35px" matTooltip="Làm bài tập"
+            [routerLink]="['/testCreate', idLesson]"
+            class="material-icons cursorTag hoverYellowColor">pending_actions</span>
+    </div>
+    <div class="col-6" align="right">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <iframe style="width: 100%; height: 600px"
+              [src]="videoUrl"
+              title="Video" frameborder="0"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Điểm cao nhất: {{test?.scoreString}}</h2>
+      <div *ngFor="let c of testDTOS">
+        <div style="margin-bottom: 5px; margin-left: 10px;">
+          <div class="row">
+            <div class="col-12" style="border-radius: 5px; border: #554c86 1px solid; background-color: white">
+              <div class="row">
+                <div class="col-1" align="center">
+                  <img style="margin-top: 15px; width: 50%; height: 50%" src="../../../../assets/image/Harvard-logo.png">
+                </div>
+                <div class="col-8">
+                  <p style="margin-top: 5px">
+                    <span>{{c?.testName}}</span>
+                    <span> Lần: {{c?.time}}</span>
+                  </p>
+                  <p>
+                    <span>{{c?.scoreString}}</span>
+                  </p>
+                </div>
+                <div class="col-3" align="right">
+                  <button style="margin-top: 15px" class="btn btn-info" (click)="getDetailTest(c)">Xem</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row" *ngIf="open">
+        <div class="col">
+          <h3>Đáp án đúng: {{results?.totalCorrectAnswer}}/Tổng số: {{results?.multipleChoices?.length}}</h3>
+        </div>
+        <div class="col">
+          <div align="right">
+            <span matTooltip="Đóng" (click)="close()" class="material-icons cursorTag hoverYellowColor">close</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!closeResult">
+        <div *ngFor="let c of results?.multipleChoices">
+          <p><span>{{c?.questionNumber}}. </span><span>{{c?.question}}</span></p>
+          <div *ngIf="c?.answerOfStudent == c?.correctAnswer">
+            <p>
+              <span>{{c?.answerOfStudent}}&ensp;</span>
+              <sub>
+                <sub>
+                <span matTooltip="Câu trả lời đúng"
+                      style="color: green" class="material-icons cursorTag">task_alt</span>
+                </sub>
+              </sub>
+            </p>
+            <p style="background-color: #d9e7b4">Giải thích: {{c?.explainCorrectAnswer}}</p>
+          </div>
+          <p *ngIf="c?.answerOfStudent != c?.correctAnswer">
+            <span>{{c?.answerOfStudent}}&ensp;</span>
+            <sub>
+              <sub>
+              <span matTooltip="Câu trả lời sai"
+                    style="color: red" class="material-icons cursorTag">highlight_off</span>
+              </sub>
+            </sub>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

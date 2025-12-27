@@ -8,4 +8,7 @@ export interface Course {
   updatedDate?: string;
   idUser?: string;
   status?: string;
+  logo?: string;
+  rate?: string;
+  idDepartment?: string;
 }

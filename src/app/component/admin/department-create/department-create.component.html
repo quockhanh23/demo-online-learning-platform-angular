@@ -1,0 +1,32 @@
+<app-header></app-header>
+<app-title [message]="title"></app-title>
+<div class="container">
+<span [routerLink]="['/departmentPage']" style="font-size: 35px; cursor: pointer;"
+      class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row" style="height: 500px; margin-top: 10px">
+    <div class="col-12">
+      <form [formGroup]="departmentForm" (ngSubmit)="createDepartment()">
+        <div class="row align-items-center">
+          <div class="col mt-4">
+            <label style="font-size: 17px">Tên bộ môn:</label>
+            <input type="text" formControlName="username" class="form-control" placeholder="Tên bộ môn *">
+            <span style="font-size: 13px">Tối đa 200 kí tự</span>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col mt-4">
+            <label style="font-size: 17px">Mô tả:</label>
+            <textarea type="text" formControlName="username" class="form-control" placeholder="Mô tả nội dung">
+        </textarea>
+            <span style="font-size: 13px">Tối đa 500 kí tự</span>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-3">
+            <button style="margin-bottom: 10px" class="btn btn-primary mt-4" type="submit">Tạo mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

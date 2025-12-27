@@ -1,0 +1,218 @@
+<app-header></app-header>
+<app-title message="Chi tiết khóa học"></app-title>
+<div class="container" style="background-color: whitesmoke">
+     <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+           matTooltip="Quay lại" class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row" style="margin-top: 10px">
+    <div class="col-6" align="left">
+      <h2>Môn học: {{course?.courseName}}
+        <sub><span *ngIf="completeCourse != null && completeCourse?.status == 'STUDYING'"
+                   matTooltip="Đang học..."
+                   class="material-icons hoverYellowColor hourglass-flip cursorTag">hourglass_top</span></sub>
+      </h2>
+      <div class="status-button" style="margin-bottom: 15px" *ngIf="course?.status == 'ACTIVE'"
+           matTooltip="Khóa học đang mở">
+        <span style="color: green" class="material-icons">check_circle</span>
+      </div>
+      <div class="status-button" style="margin-bottom: 15px" *ngIf="course?.status == 'INACTIVE'"
+           matTooltip="Khóa học đang bị khóa">
+        <span style="color: #327eab" class="material-icons">info_outline</span>
+      </div>
+      <p>Ngày tạo: {{course?.createdDate | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="course?.updatedDate != null">Chỉnh sửa cuối: {{course?.updatedDate | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="course?.updatedDate == null">Chỉnh sửa cuối: {{course?.createdDate | date: 'dd/MM/yyyy'}}</p>
+      <div style="margin-top: 10px">
+        <div *ngIf="review == null && course?.status == 'ACTIVE'" class="rating">
+          <input type="radio" name="rating" value="5" id="5" (click)="getStarValue(5)">
+          <label for="5">☆</label>
+          <input type="radio" name="rating" value="4" id="4" (click)="getStarValue(4)"><label
+          for="4">☆</label>
+          <input type="radio" name="rating" value="3" id="3" (click)="getStarValue(3)"><label
+          for="3">☆</label>
+          <input type="radio" name="rating" value="2" id="2" (click)="getStarValue(2)"><label
+          for="2">☆</label>
+          <input type="radio" name="rating" value="1" id="1" (click)="getStarValue(1)"><label
+          for="1">☆</label>
+        </div>
+        <div class="rating" *ngIf="review != null || course?.status == 'INACTIVE'" style="pointer-events: none;">
+          <input type="radio" name="rating" value="5" [checked]="(course?.rate ?? 0) >= 5">
+          <label for="5">☆</label>
+          <input type="radio" name="rating" value="4" [checked]="(course?.rate ?? 0) >= 4 && (course?.rate ?? 0) < 5">
+          <label for="4">☆</label>
+          <input type="radio" name="rating" value="3" [checked]="(course?.rate ?? 0) >= 3 && (course?.rate ?? 0) < 4">
+          <label for="3">☆</label>
+          <input type="radio" name="rating" value="2" [checked]="(course?.rate ?? 0) >= 2 && (course?.rate ?? 0) < 3">
+          <label for="2">☆</label>
+          <input type="radio" name="rating" value="1" [checked]="(course?.rate ?? 0) >= 1 && (course?.rate ?? 0) < 2">
+          <label for="1">☆</label>
+        </div>
+        <span>{{course?.rate}}</span>
+      </div>
+    </div>
+    <div class="col-6" align="right">
+      <form>
+        <div class="row">
+          <div class="col-10">
+            <input id="searchLesson" style="width: 75%" class="form-control" type="search"
+                   placeholder="Tìm kiếm theo tên bài học"
+                   aria-label="Search">
+          </div>
+          <div class="col-1">
+            <button (click)="getAllLessonByCourse(0, 10, this.course?.id); scrollTo()" class="btn btn-info"
+                    type="submit"
+                    style="height: 40px">
+              <span class="material-icons">search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" style="margin-right: 1px">
+    <div class="col-11" align="right">
+      <div *ngIf="roles != null && isStudent && course?.status == 'ACTIVE'" style="margin-bottom: 15px">
+        <button *ngIf="value == '2'" class="btn btn-info" (click)="courseRegister()">Đăng kí học khóa này</button>
+      </div>
+    </div>
+    <div class="col-1" align="center" *ngIf="rolesCheck == 'ADMIN' || rolesCheck == 'TEACHER'">
+      <div class="row">
+        <div class="col-4">
+          <span [routerLink]="['/updateCourse', course?.id]" matTooltip="Chỉnh sửa khóa học"
+                class="material-icons cursorTag hoverYellowColor">edit</span>
+        </div>
+        <div class="col-4">
+          <span style="font-size: 30px" matTooltip="Thêm bài học" [routerLink]="['/createLesson', course?.id]"
+                class="material-icons cursorTag hoverYellowColor">playlist_add</span>
+        </div>
+        <div class="col-4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <img style="width: 100%; height: 300px; border-radius: 5px" src="{{course?.logo}}" alt="Lỗi ảnh">
+    </div>
+    <div class="col-6" style="background-color: white; border-radius: 5px">
+      <div class="row">
+        <div class="col-11">
+          <p>{{course?.courseDescription}}</p>
+          <p>{{course?.startDate | date: 'dd/MM/yyyy'}}</p>
+          <p>{{course?.endDate | date: 'dd/MM/yyyy'}}</p>
+          <p>Biên soạn: {{userDTO?.education}} - {{userDTO?.fullName}}</p>
+          <p>{{userDTO?.email}}</p>
+        </div>
+        <div class="col-1" style="background-color: whitesmoke; height: 300px;">
+          <div class="row">
+            <div class="col-6" style="background-color: white; height: 300px;">
+            </div>
+            <div class="col-6">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div align="center">
+        <h2 id="sectionCourse" style="margin-top: 20px">Chọn bài học ở dưới để học</h2>
+      </div>
+      <section class="pt-5 pb-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="mb-3">Các bài học trong khóa ({{sizeLessons}})</h3>
+            </div>
+            <div class="col-6 text-right">
+              <a matTooltip="Sang trái" class="mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
+                 data-slide="prev">
+                <span class="material-icons">arrow_back_ios</span>
+              </a>
+              <a matTooltip="Sang phải" class="mb-3" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                <span class="material-icons">arrow_forward_ios</span>
+              </a>
+            </div>
+            <div class="col-12">
+              <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="row">
+                      <div class="col-md-4 mb-3" *ngFor="let item of first3Item">
+                        <div class="card" matTooltip="Click để xem video">
+                          <span *ngIf="course?.status == 'ACTIVE'"
+                                style="color: green; margin-left: 5px; margin-top: 5px"
+                                class="material-icons">check_circle</span>
+                          <span *ngIf="course?.status == 'INACTIVE'"
+                                style="color: #327eab;  margin-left: 5px; margin-top: 5px"
+                                class="material-icons">info_outline</span>
+                          <img class="img-fluid cursorTag" style="width: 100%; height: 150px"
+                               [routerLink]="['/detailLesson', item?.id]"
+                               alt="100%x280" src="{{item?.image}}">
+                          <div class="card-body">
+                            <h4 class="card-title">
+                              {{item?.lessonNumber}}</h4>
+                            <p class="card-text">{{item?.lessonName}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item" *ngFor="let group of chunks">
+                    <div class="row">
+                      <div class="col-md-4 mb-3" *ngFor="let item of group">
+                        <div class="card">
+                          <span *ngIf="course?.status == 'ACTIVE'"
+                                style="color: green; margin-left: 5px; margin-top: 5px"
+                                class="material-icons">check_circle</span>
+                          <span *ngIf="course?.status == 'INACTIVE'"
+                                style="color: #327eab;  margin-left: 5px; margin-top: 5px"
+                                class="material-icons">info_outline</span>
+                          <img class="img-fluid cursorTag" style="width: 100%; height: 150px"
+                               [routerLink]="['/detailLesson', item?.id]"
+                               alt="100%x280" src="{{item?.image}}">
+                          <div class="card-body">
+                            <h4 class="card-title">
+                              {{item?.lessonNumber}}</h4>
+                            <p class="card-text">{{item?.lessonName}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="row">
+    <h2 style="text-align: center; width: 100%;">Giảng viên bộ môn</h2>
+    <div class="card-container">
+      <div *ngFor="let user of userDTOs">
+        <div class="card" style="width: 18rem;">
+          <img *ngIf="user?.avatar != null && user?.avatar != ''" class="card-img-top" src="{{user?.avatar}}"
+               alt="Card image cap">
+          <img *ngIf="user?.avatar == null || user?.avatar == ''" class="card-img-top"
+               src="../../../../assets/image/avatar-default.jpg"
+               alt="Card image cap">
+          <div class="card-body">
+            <h3 class="card-title">{{user?.fullName}}
+              <span class="status-dot" [ngClass]="user?.online ? 'online' : 'offline'"></span>
+            </h3>
+            <p class="card-text">
+              {{user?.education}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,66 @@
+<div style="background-color: #3f6ba4; height: 100px;">
+  <div class="row">
+    <div class="col-2" style="height: 100px">
+      <img [routerLink]="['/']" class="cursorTag"
+           style="width: 100%; height: 100%;"
+           src="../../../../assets/image/harvard-university.png"
+           alt="lỗi ảnh">
+    </div>
+    <div class="col-6">
+     <span matTooltip="Quản lý chi tiết" *ngIf="isAdmin" [routerLink]="['/adminPage']"
+           style="font-size: 30px; margin-top: 30px; color: white"
+           class="material-icons hoverYellowColor cursorTag">settings</span>
+    </div>
+    <div *ngIf="idUser == null || idUser == ''" class="col-2">
+    </div>
+    <div *ngIf="idUser == null || idUser == ''" class="col-2">
+      <button [routerLink]="['/login']" style="margin-top: 30px" class="btn btn-light">Đăng nhập</button>
+    </div>
+    <div *ngIf="idUser != null && idUser != ''" class="col-2">
+      <div class="row">
+        <div class="col-1">
+          <div style="color: white; margin-top: 35px; cursor: pointer;" align="left">
+            <div class="dropdown">
+              <span matButton [matMenuTriggerFor]="menu" matTooltip="Thông báo" class="material-icons"
+                    data-toggle="dropdown">notifications_active</span>
+              <sup>
+                <span>{{countNotification}}</span>
+              </sup>
+              <mat-menu #menu="matMenu" class="ellipsis">
+                <button *ngIf="countNotification != 0" mat-menu-item (click)="updateAllStatus()">
+                  <sub><sub><span style="color: gray" class="material-icons">done</span></sub></sub>
+                  Đánh dấu đã đọc tất cả
+                </button>
+                <button *ngIf="countNotification == 0" mat-menu-item (click)="updateAllStatus()">
+                  <sub><sub><span style="color: green" class="material-icons">done</span></sub></sub>
+                  Đánh dấu đã đọc tất cả
+                </button>
+                <span></span>
+                <div *ngFor="let noti of page?.content">
+                  <button matTooltip="{{noti?.content}}" *ngIf="noti?.status == 'INACTIVE'"
+                          mat-menu-item>{{noti?.content}}</button>
+                  <button matTooltip="{{noti?.content}}" *ngIf="noti?.status == 'ACTIVE'"
+                          style="background-color: #e7dada"
+                          (click)="updateNotification(noti?.id)" mat-menu-item>{{noti?.content}}</button>
+                </div>
+              </mat-menu>
+              <sup><sup><sup><span style="font-size: 10px">{{count}}</span></sup></sup></sup>
+            </div>
+          </div>
+        </div>
+        <div class="col-10">
+          <div style="color: white; margin-top: 32px; cursor: pointer" [routerLink]="['/detailUser', idUser]">
+           <span matTooltip="Thông tin cá nhân"> <sub><span class="material-icons">account_box</span></sub>&nbsp;
+            <span style="font-size: 18px">{{username}}</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="idUser != null && idUser != ''" class="col-2">
+      <button [routerLink]="['/login']" (click)="logout()" style="margin-top: 30px" class="btn btn-light">
+        Đăng Xuất
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,18 @@
+<app-header></app-header>
+<app-title message="Cập nhật bài học"></app-title>
+<div class="container" style="background-color: whitesmoke">
+    <span [routerLink]="['/detailLesson', idLesson]" style="font-size: 35px; cursor: pointer;"
+          class="material-icons hoverYellowColor">arrow_back</span>
+  <form [formGroup]="lessonForm" (ngSubmit)="updateLesson()">
+    <div class="row" style="margin-top: 10px">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <label>Tên bài học:</label>
+        <input formControlName="lessonName" class="form-control" placeholder="Tên bài học">
+        <span style="font-size: 13px">Tối đa 32 kí tự</span>
+      </div>
+      <div class="col-3"></div>
+    </div>
+    <div style="height: 350px"></div>
+  </form>
+</div>
