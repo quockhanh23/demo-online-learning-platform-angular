@@ -1,0 +1,36 @@
+<app-header></app-header>
+<app-title [message]="title"></app-title>
+<div class="container" style="background-color: #e2eaef">
+  <span [routerLink]="['/detailUser', idUserLogin]" style="font-size: 35px; cursor: pointer;"
+        class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row" style="{{height}}">
+    <div class="col-12">
+      <hr>
+      <h2 align="center">Danh sách môn học</h2>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên môn học</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Ngày bắt đầu</th>
+          <th scope="col">Ngày kết thúc</th>
+          <th scope="col">Điểm tổng kết</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let s of summaries index as i">
+          <td>{{i + 1}}</td>
+          <td>{{s?.courseName}}</td>
+          <td style="color: #0ba10b" *ngIf="s.status == 'STUDYING'">Đang học</td>
+          <td style="color: #0b3ba1" *ngIf="s.status == 'FINISHED'">Hoàn thành</td>
+          <td>{{s?.startDate | date: 'dd/MM/yyyy'}}</td>
+          <td>N/A</td>
+          <td>{{s?.finalScore}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

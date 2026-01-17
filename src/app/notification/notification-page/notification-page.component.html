@@ -1,0 +1,71 @@
+<app-header></app-header>
+<app-title message="Thông báo"></app-title>
+<div class="container" style="background-color: whitesmoke">
+     <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+           class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row" style="{{height}}">
+    <div class="col-12">
+      <span matTooltip="Đánh dấu đọc tất cả" (click)="updateAllStatus()"
+            style="font-size: 30px; color: #327eab" class="material-icons cursorTag">checklist_rtl</span>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Thời gian</th>
+          <th scope="col">Nội dung</th>
+          <th scope="col">Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let notification of notifications" (click)="updateNotification(notification?.id)"
+            class="cursorTag hoverGrayColor">
+          <td>
+            {{ notification?.createdDate | date:'dd/MM/yyyy HH:mm':'Asia/Ho_Chi_Minh' }}
+          </td>
+          <td [innerHTML]="notification.content"></td>
+          <td *ngIf="notification?.status == 'ACTIVE'">
+            Chưa xem
+            <sub>
+              <sub>
+                <span class="material-icons">help_outline</span>
+              </sub>
+            </sub>
+          </td>
+          <td style="color: #0ba10b" *ngIf="notification?.status == 'INACTIVE'">
+            Đã xem
+            <sub>
+              <sub>
+                <span class="material-icons">check_circle_outline</span>
+              </sub>
+            </sub>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+    <div class="col-3" align="left">
+      <p style="margin-top: 5px; font-size: 17px">Trang: {{currentPageAddOne}}/{{pageNotification?.content?.length}} |
+        Tổng
+        số: {{pageNotification?.page?.totalElements}}</p>
+    </div>
+    <div class="col-1" align="left">
+      <div>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="Second group">
+            <button matTooltip="Trang trước" type="button" class="btn btn-link" (click)="previousPage()">
+              <span style="font-size: 15px"
+                    class="material-icons hoverYellowColor cursorTag">arrow_back_ios</span>
+            </button>
+            <button matTooltip="Trang tiếp theo" type="button" class="btn btn-link" (click)="nextPage()">
+            <span style="font-size: 15px"
+                  class="material-icons hoverYellowColor cursorTag">arrow_forward_ios</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4"></div>
+  </div>
+</div>

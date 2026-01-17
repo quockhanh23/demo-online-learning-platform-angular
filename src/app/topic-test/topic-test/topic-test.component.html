@@ -1,0 +1,18 @@
+<div class="container">
+  <span [routerLink]="['/']" style="font-size: 35px; cursor: pointer;"
+        class="material-icons hoverYellowColor">arrow_back</span>
+  <div class="row">
+    <h2>{{topicTest?.testName}}</h2>
+    <h2>{{topicTest?.type}}</h2>
+    <div *ngFor="let m of multipleChoiceQuestions">
+      <p>{{m?.content}}</p>
+      <p>{{m?.answer1}}</p>
+      <p>{{m?.answer2}}</p>
+      <p>{{m?.answer3}}</p>
+      <p>{{m?.answer4}}</p>
+    </div>
+    <div *ngFor="let e of essayQuestions">
+      <p>{{e?.content}}</p>
+    </div>
+  </div>
+</div>

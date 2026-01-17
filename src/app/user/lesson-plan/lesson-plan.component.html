@@ -1,0 +1,95 @@
+<app-header></app-header>
+<app-title message="Soạn đề"></app-title>
+<div class="container">
+  <h2>Chọn bộ môn</h2>
+  <div class="row" style="margin-bottom: 20px">
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-expanded="false">
+        {{ selectedDepartment?.name }}
+      </button>
+      <div class="dropdown-menu">
+        <button
+          class="dropdown-item"
+          type="button"
+          *ngFor="let de of departments"
+          (click)="selectDepartment(de)">
+          {{ de.name }}
+        </button>
+      </div>
+    </div>
+    <button (click)="getAllCourseByDepartment(0, 10)" class="btn btn-info" type="submit"
+            style="height: 38px; margin-left: 10px">
+      <span class="material-icons">search</span></button>
+
+  </div>
+  <div class="row" style="{{height}}">
+    <table class="table" *ngIf="lessons == null">
+      <thead>
+      <tr>
+        <th scope="col">Ngày tạo</th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of pageCourse?.content">
+        <td>{{c?.createdDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{c?.courseName}}</td>
+        <td>{{c?.status}}</td>
+        <td>
+          <sup><sup>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </sup></sup>
+        </td>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>visibility</mat-icon>
+            <span (click)="getAllLessonByCourse(c?.id)">Xem bài học trong khóa học</span>
+          </button>
+        </mat-menu>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <table class="table" *ngIf="lessons != null">
+      <thead>
+      <tr>
+        <th scope="col">Ngày tạo</th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of lessons">
+        <td>{{c?.createdDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{c?.lessonName}}</td>
+        <td>{{c?.status}}</td>
+        <td>
+          <sup><sup>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </sup></sup>
+        </td>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['/topicTestCreate', c?.id]">
+            <mat-icon>border_color</mat-icon>
+            <span>Soạn đề</span>
+          </button>
+        </mat-menu>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
